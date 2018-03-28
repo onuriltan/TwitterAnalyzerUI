@@ -1,0 +1,18 @@
+.description {
+    font-size: 150%;
+    font-family: Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+.searchfield{
+    display: flex;
+    justify-content: center;
+}
+.searchbuttons {
+    display: flex;
+    justify-content: center;
+    .bttn {
+        margin : 1em 0.5em;
+        justify-content: right;
+    }
+}
