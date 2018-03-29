@@ -1,6 +1,5 @@
 import * as types from './action_types';
 
-
 export function build_twitter_stream(state) {
     return {
         type: types.BUILD_TWITTER_STREAM,
