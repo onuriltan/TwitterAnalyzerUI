@@ -27,23 +27,22 @@ class App extends Component {
 
   }
 
- render() {
+  render() {
     return (
-        <MuiThemeProvider>
-          <div className="main">
-            <SearchArea />
-            <Board />
-          </div>
-        </MuiThemeProvider>
+      <MuiThemeProvider>
+        <div className="main">
+          <SearchArea />
+          <Board />
+        </div>
+      </MuiThemeProvider>
 
     );
   }
 
-
   build_socket_connection() {
-      let newState = this.state.initialState;
-      newState.socket_connection = BuildSocketConnection();
-      return this.props.actions.build_twitter_stream(newState); 
+    let newState = this.state.initialState;
+    newState.socket_connection = BuildSocketConnection();
+    return this.props.actions.build_twitter_stream(newState);
   }
 
 }

@@ -5,7 +5,6 @@ import thunk from 'redux-thunk';
 export default function() {
 
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') { //https://stackoverflow.com/a/35470995
-        console.log(process.env.NODE_ENV);
 
         return createStore(
             main_reducer,
