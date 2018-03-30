@@ -21,3 +21,20 @@ export function stop_twitter_stream(state) {
     };
 
 }
+
+export function update_person_data(state) {
+    return {
+        type: types.UPDATE_PERSON_DATA,
+        payload: state
+    };
+
+}
+
+export function set_keyword_field(state) {
+    return {
+        type: types.SET_KEYWORD_FIELD,
+        payload: state
+    };
+
+}
+

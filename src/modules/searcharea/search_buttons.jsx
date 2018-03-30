@@ -9,21 +9,18 @@ import PropTypes from 'prop-types';
 
 class SearcButtons extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
             initialState: this.props.state.reducer
         };
-
-
     }
 
     render() {
         return (
             <div className="searchbuttons">
                 <RaisedButton className="bttn" label="Start" onClick={() => this.start_twitter_stream()} />
-                <RaisedButton className="bttn" label="Stop" onClick={() => this.stop_twitter_stream()} />
+                <RaisedButton className="bttn" label="Stop"  onClick={() => this.stop_twitter_stream()} />
             </div>
         );
     }
@@ -37,6 +34,7 @@ class SearcButtons extends Component {
     stop_twitter_stream() {
         let newState = this.state.initialState;
         newState.socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
+        newState.socketConnection.unsubscribe("/topic/fetchTwitterStream");
         return this.props.actions.stop_twitter_stream(newState);
     }
 

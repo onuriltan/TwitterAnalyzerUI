@@ -40,7 +40,7 @@ class SearchField extends Component {
     this.theCoolTimeout = setTimeout(() => {
       let newState = this.state.initialState;
       newState.keyword = keyword;
-      return this.props.actions.build_twitter_stream(newState);
+      return this.props.actions.set_keyword_field(newState);
     }, 500);
   }
 }

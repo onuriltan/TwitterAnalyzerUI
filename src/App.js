@@ -51,14 +51,15 @@ class App extends Component {
         if (tweet.namedEntity === 'PERSON') {
           if (newState.person.has(tweet.word)) {
             let number = newState.person.get(tweet.word);
-            newState.person.set(tweet.namedEntity, number + 1);
+            newState.person.set(tweet.word, number + 1);
+            console.log(tweet.word, number + 1);
           }
           else {
-            newState.person.set(tweet.namedEntity, 1);
+            newState.person.set(tweet.word, 1);
+            console.log(tweet.word, 1);
           }
         }
-        console.log(that);
-        return that.props.actions.start_twitter_stream(newState);
+        return that.props.actions.update_person_data(newState);
 
       });
     });
@@ -87,4 +88,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App);
-
