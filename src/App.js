@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions';
@@ -11,9 +14,6 @@ import './App.scss';
 
 import SearchArea from './modules/searcharea';
 import Board from './modules/board';
-import BuildSocketConnection from './functions/socket_connection';
-
-
 
 class App extends Component {
 
@@ -22,8 +22,8 @@ class App extends Component {
     this.state = {
       initialState: this.props.state.reducer
     };
-    this.build_socket_connection = this.build_socket_connection.bind(this);
-    this.build_socket_connection();
+    this.buildSocketConnection = this.buildSocketConnection.bind(this);
+    this.buildSocketConnection();
 
   }
 
@@ -39,14 +39,34 @@ class App extends Component {
     );
   }
 
-  build_socket_connection() {
+  buildSocketConnection() {
     let newState = this.state.initialState;
-    newState.socket_connection = BuildSocketConnection();
+    let stompClient = null;
+    var that = this;
+    let socket = new SockJS('http://localhost:3001/twitterStream');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+      stompClient.subscribe('/topic/fetchTwitterStream', function (tokenizedTweet) {
+        let tweet = JSON.parse(tokenizedTweet.body);
+        if (tweet.namedEntity === 'PERSON') {
+          if (newState.person.has(tweet.word)) {
+            let number = newState.person.get(tweet.word);
+            newState.person.set(tweet.namedEntity, number + 1);
+          }
+          else {
+            newState.person.set(tweet.namedEntity, 1);
+          }
+        }
+        console.log(that);
+        return that.props.actions.start_twitter_stream(newState);
+
+      });
+    });
+    newState.socketConnection = stompClient;
     return this.props.actions.build_twitter_stream(newState);
   }
 
 }
-
 
 App.propTypes = {
   actions: PropTypes.object,

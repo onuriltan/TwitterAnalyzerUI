@@ -16,6 +16,8 @@ class SearchField extends Component {
     };
     this.change_keyword = this.change_keyword.bind(this);
 
+    this.theCoolTimeout = null;
+
   }
 
   render() {
@@ -33,9 +35,13 @@ class SearchField extends Component {
   }
 
   change_keyword(event) {
-    let newState = this.state.initialState;
-    newState.keyword = event.target.value;
-    return this.props.actions.build_twitter_stream(newState);
+    clearTimeout(this.theCoolTimeout);
+    var keyword = event.target.value;
+    this.theCoolTimeout = setTimeout(() => {
+      let newState = this.state.initialState;
+      newState.keyword = keyword;
+      return this.props.actions.build_twitter_stream(newState);
+    }, 500);
   }
 }
 

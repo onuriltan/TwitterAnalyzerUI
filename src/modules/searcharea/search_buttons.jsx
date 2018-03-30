@@ -16,26 +16,28 @@ class SearcButtons extends Component {
             initialState: this.props.state.reducer
         };
 
-        this.start_twitter_stream = this.start_twitter_stream.bind(this);
-        this.stop_twitter_stream = this.stop_twitter_stream.bind(this);
 
     }
 
     render() {
         return (
             <div className="searchbuttons">
-                <RaisedButton className="bttn" label="Start" onClick={this.start_twitter_stream} />
-                <RaisedButton className="bttn" label="Stop" onClick={this.stop_twitter_stream} />
+                <RaisedButton className="bttn" label="Start" onClick={() => this.start_twitter_stream()} />
+                <RaisedButton className="bttn" label="Stop" onClick={() => this.stop_twitter_stream()} />
             </div>
         );
     }
 
     start_twitter_stream() {
-        this.state.initialState.socket_connection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'start', 'message': this.state.initialState.keyword }));
+        let newState = this.state.initialState;
+        newState.socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'start', 'message': newState.keyword }));
+        return this.props.actions.start_twitter_stream(newState);
     }
 
     stop_twitter_stream() {
-        this.state.initialState.socket_connection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
+        let newState = this.state.initialState;
+        newState.socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
+        return this.props.actions.stop_twitter_stream(newState);
     }
 
 }
