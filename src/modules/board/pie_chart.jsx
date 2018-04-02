@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import { Pie } from 'react-chartjs-2';
 
+const height = 300;
+const width = 300;
+
 const data = {
     labels: [
         'Red',
@@ -23,6 +26,7 @@ const data = {
     }]
 };
 class PieChart extends Component {
+  
 
     render() {
         return (
@@ -33,8 +37,8 @@ class PieChart extends Component {
                         maintainAspectRatio: false,
                        
                     }}
-                    height="300px" 
-                    width="300px"
+                    height={height} 
+                    width= {width}
                     />
             </div>
         )

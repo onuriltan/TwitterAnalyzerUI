@@ -38,9 +38,13 @@ class SearchField extends Component {
     clearTimeout(this.theCoolTimeout);
     var keyword = event.target.value;
     this.theCoolTimeout = setTimeout(() => {
-      let newState = this.state.initialState;
-      newState.keyword = keyword;
-      return this.props.actions.set_keyword_field(newState);
+      let payload = {
+        data: {
+          keyword: keyword,
+        }
+      }
+    this.props.actions.set_keyword_field(payload);
+
     }, 500);
   }
 }
