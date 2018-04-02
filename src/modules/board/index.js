@@ -10,12 +10,12 @@ export default class extends Component {
         return (
             <div className="board">
                 <div className="board1">
-                    <PieChart />
-                    <PieChart />
+                    <PieChart name="NAME"/>
+                    <PieChart name="LOCATION"/>
                 </div>
                 <div className="board2">
-                    <PieChart />
-                    <PieChart />
+                    <PieChart name="ORGANIZATION"/>
+                    <PieChart name="TITLE"/>
                 </div>
             </div>
         );
