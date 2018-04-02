@@ -1,8 +1,8 @@
 export default {
-    socketConnection  : null,
+    socketConnection   : null,
     keyword            : null,
-    location           : new Map(), 
-    organization       : new Map(),
-    person             : new Map(),
-    title              : new Map()
+    location           : { }, 
+    organization       : { },
+    person             : { },
+    title              : { }
 }
