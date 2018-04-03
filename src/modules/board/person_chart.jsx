@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 
 import { Pie } from 'react-chartjs-2';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../../actions';
-import PropTypes from 'prop-types';
-
 const height = 300;
 const width = 300;
 
@@ -39,9 +34,11 @@ class PersonChart extends Component {
     }
 
     render() {
+
+        var data = this.fetch_chartdata_from_global_state();
         return (
             <div className="chart">
-                <Pie data={this.state.data}
+                <Pie data={data}
                     options={{
                         responsive: false,
                         maintainAspectRatio: false,
@@ -55,37 +52,41 @@ class PersonChart extends Component {
     }
 
     fetch_chartdata_from_global_state() {
+        let updatedData = {
+            labels: [
 
-        let personMap = this.props.state.reducer.person;
-        let updatedData = this.state.data;
+            ],
+            datasets: [{
+                data: [],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56'
+                ],
+                hoverBackgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56'
+                ]
+            }]
+        };
+
+        console.log(this.props.chartData.data.person);
+
+        let personMap = this.props.chartData.data.person;
 
         Object.entries(personMap).forEach(([key, value]) => updatedData.labels.push(key));
         Object.entries(personMap).forEach(([key, value]) => updatedData.datasets[0].data.push(value));
 
-        this.setState({ data: updatedData });
         console.log(this.state.data);
+
+        return updatedData;
 
     }
 
 
 
 }
-PersonChart.propTypes = {
-    actions: PropTypes.object,
-    initialState: PropTypes.object
-};
 
-function mapStateToProps(state) {
-    return { state: state };
-}
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PersonChart);
+export default PersonChart;

@@ -10,12 +10,27 @@ import Board from './modules/board';
 
 class App extends Component {
 
-     render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            chartData: {
+                data: {
+                    person: { }
+                }
+            }
+        }
+    }
+
+    handleNewData(chartData) {
+        this.setState({ chartData: chartData })
+    }
+
+    render() {
         return (
             <MuiThemeProvider>
                 <div className="main">
-                    <SearchArea />
-                    <Board />
+                    <SearchArea newDataListener={this.handleNewData.bind(this)} />
+                    <Board chart={this.state.chartData} />
                 </div>
             </MuiThemeProvider>
 

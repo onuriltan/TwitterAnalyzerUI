@@ -34,11 +34,12 @@ class SearcButtons extends Component {
         return this.props.actions.stop_twitter_stream(payload);
     }
 
-    componentWillReceiveProps(nextProps, nextState){
+    componentWillReceiveProps(nextProps, nextState) {
         console.log(nextProps.state.reducer);
     }
 
     start_twitter_stream() {
+
         let stompClient = null;
         var that = this;
         let socket = new SockJS('http://localhost:3001/twitterStream');
@@ -67,7 +68,7 @@ class SearcButtons extends Component {
                     }
 
                     that.props.actions.update_person_data(payload_person);
-
+                    that.props.newDataListener(payload_person);
 
                 }
 
@@ -90,6 +91,7 @@ class SearcButtons extends Component {
                         payload_location.data.location[tweet.word] = 1;
                     }
                     that.props.actions.update_location_data(payload_location);
+                    //that.props.newDataListener(payload_location);
                 }
 
                 if (tweet.namedEntity === 'ORGANIZATION') {
@@ -111,6 +113,7 @@ class SearcButtons extends Component {
                         payload_organization.data.organization[tweet.word] = 1;
                     }
                     that.props.actions.update_organization_data(payload_organization);
+                    //that.props.newDataListener(payload_organization);
                 }
 
 

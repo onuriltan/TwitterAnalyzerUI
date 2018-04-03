@@ -13,7 +13,7 @@ export default class extends Component {
             <div className = "searcharea">
                 <Description />
                 <SearchField />
-                <SearchButtons />
+                <SearchButtons newDataListener={this.props.newDataListener} />
             </div>
         );
     }
