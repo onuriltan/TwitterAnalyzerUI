@@ -44,7 +44,6 @@ export default function reducer(state = initialState, action) {
             );
 
         case UPDATE_PERSON_DATA:
-            console.log(action.payload.data.person);
             return update(
                 state, {
                     person: { $merge: action.payload.data.person }
