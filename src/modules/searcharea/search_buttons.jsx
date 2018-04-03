@@ -51,7 +51,9 @@ class SearcButtons extends Component {
                 if (tweet.namedEntity === 'PERSON') {
                     var payload_person = {
                         data: {
-                            person: that.props.state.reducer.person
+                            person: that.props.state.reducer.person,
+                            location: that.props.state.reducer.location,
+                            organization: that.props.state.reducer.organization
                         }
                     }
                     let personMap = that.props.state.reducer.person;
@@ -75,7 +77,9 @@ class SearcButtons extends Component {
                 if (tweet.namedEntity === 'LOCATION') {
                     var payload_location = {
                         data: {
-                            location: that.props.state.reducer.location
+                            person: that.props.state.reducer.person,
+                            location: that.props.state.reducer.location,
+                            organization: that.props.state.reducer.organization
                         }
                     }
                     let locationMap = that.props.state.reducer.location;
@@ -91,12 +95,14 @@ class SearcButtons extends Component {
                         payload_location.data.location[tweet.word] = 1;
                     }
                     that.props.actions.update_location_data(payload_location);
-                    //that.props.newDataListener(payload_location);
+                    that.props.newDataListener(payload_location);
                 }
 
                 if (tweet.namedEntity === 'ORGANIZATION') {
                     var payload_organization = {
                         data: {
+                            person: that.props.state.reducer.person,
+                            location: that.props.state.reducer.location,
                             organization: that.props.state.reducer.organization
                         }
                     }
@@ -113,8 +119,31 @@ class SearcButtons extends Component {
                         payload_organization.data.organization[tweet.word] = 1;
                     }
                     that.props.actions.update_organization_data(payload_organization);
-                    //that.props.newDataListener(payload_organization);
+                    that.props.newDataListener(payload_organization);
                 }
+
+                /*else {
+                    var payload_others = {
+                        data: {
+                            others: that.props.state.reducer.others
+                        }
+                    }
+                    let othersMap = that.props.state.reducer.others;
+                    if (tweet.word in othersMap) {
+                        Object.entries(othersMap).forEach(([key, value]) => {
+                            if (key === tweet.word) {
+                                payload_others.data.others[tweet.word] = value + 1;
+                            }
+                        }
+                        );
+                    }
+                    else {
+                        payload_others.data.others[tweet.word] = 1;
+                    }
+                    that.props.actions.update_others_data(payload_others);
+                    that.props.newDataListener(payload_others);
+                }*/
+
 
 
 

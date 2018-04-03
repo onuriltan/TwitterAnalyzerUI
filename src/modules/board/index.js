@@ -12,15 +12,14 @@ export default class extends Component {
     render() {
         return (
             <div className="board">
-            <div className="temp">{JSON.stringify(this.props.chart)} </div>
                 <div className="board1">
-                    <PersonChart chartData = {this.props.chart} />
-                    <LocationChart chartData = {this.props.chart}/>
-                    
+                    <PersonChart chartData={this.props.chart} />
+                    <LocationChart chartData={this.props.chart} />
+
                 </div>
                 <div className="board2">
-                    <OrganizationChart chartData = {this.props.chart} />
-                    <TitleChart chartData = {this.props.chart}/>
+                    <OrganizationChart chartData={this.props.chart} />
+                    <TitleChart chartData={this.props.chart} />
                 </div>
             </div>
         );

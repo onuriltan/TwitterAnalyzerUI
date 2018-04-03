@@ -8,30 +8,6 @@ const width = 300;
 
 class PersonChart extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {
-                labels: [
-
-                ],
-                datasets: [{
-                    data: [],
-                    backgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56'
-                    ],
-                    hoverBackgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56'
-                    ]
-                }]
-            }
-        }
-
-    }
 
     render() {
 
@@ -71,14 +47,13 @@ class PersonChart extends Component {
             }]
         };
 
-        console.log(this.props.chartData.data.person);
-
         let personMap = this.props.chartData.data.person;
 
-        Object.entries(personMap).forEach(([key, value]) => updatedData.labels.push(key));
-        Object.entries(personMap).forEach(([key, value]) => updatedData.datasets[0].data.push(value));
-
-        console.log(this.state.data);
+        if (typeof(personMap) !== "undefined" && personMap !== null) {
+            Object.entries(personMap).forEach(([key, value]) => updatedData.labels.push(key));
+            Object.entries(personMap).forEach(([key, value]) => updatedData.datasets[0].data.push(value));
+        }
+        console.log(personMap);
 
         return updatedData;
 

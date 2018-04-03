@@ -15,7 +15,11 @@ class App extends Component {
         this.state = {
             chartData: {
                 data: {
-                    person: { }
+                    person: { },
+                    location: { },
+                    organization: { },
+                    title: { },
+                    others: { }
                 }
             }
         }
