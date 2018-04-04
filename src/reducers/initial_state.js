@@ -4,6 +4,5 @@ export default {
     location           : { }, 
     organization       : { },
     person             : { },
-    title              : { },
     others             : { }
 }

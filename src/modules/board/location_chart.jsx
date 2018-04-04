@@ -9,43 +9,19 @@ const width = 300;
 
 class LocationChart extends Component {
 
-    fetch_chartdata_from_global_state() {
-
-        let updatedData = {
-            labels: [
-
-            ],
-            datasets: [{
-                data: [],
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56'
-                ],
-                hoverBackgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56'
-                ]
-            }]
-        };
-
-        let locationMap = this.props.chartData.data.location;
-
-        if (typeof(locationMap) !== "undefined" && locationMap !== null) {
-            Object.entries(locationMap).forEach(([key, value]) => updatedData.labels.push(key));
-            Object.entries(locationMap).forEach(([key, value]) => updatedData.datasets[0].data.push(value));
-        }
-
-        return updatedData;
-
-    }
-
     render() {
         var data = this.fetch_chartdata_from_global_state();
 
+        function dataNull() {
+            if (Object.keys(data.labels).length !== 0) {
+                return false;
+            }
+            return true;
+
+        }
         return (
             <div className="chart">
+             <label className="description"> {!dataNull() ? "Location" : ""} </label>
                 <Pie data={data}
                     options={{
                         responsive: false,
@@ -57,6 +33,60 @@ class LocationChart extends Component {
                 />
             </div>
         )
+    }
+
+    fetch_chartdata_from_global_state() {
+
+        let updatedData = {
+            labels: [
+
+            ],
+            datasets: [{
+                data: [],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#FF0000',
+                    '#8A46FF'
+                ],
+                hoverBackgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#FF0000',
+                    '#8A46ff'
+                ]
+            }]
+        };
+
+        let map = this.props.chartData.data.location;
+
+        if (typeof (map) !== "undefined" && map !== null && (Object.keys(map).length !== 0 && map.constructor === Object)) {
+
+            let tuples = [];
+
+            for (let key in map) tuples.push([key, map[key]]);
+
+            tuples.sort(function (a, b) {
+                a = a[1];
+                b = b[1];
+
+                return a < b ? -1 : (a > b ? 1 : 0);
+            });
+
+            for (var i = 0; i < tuples.length; i++) {
+                if (i < 5) {
+                    let key = tuples[i][0];
+                    let value = tuples[i][1];
+
+                    updatedData.labels.push(key);
+                    updatedData.datasets[0].data.push(value);
+                }
+            }
+        }
+        return updatedData;
+
     }
 
 }

@@ -34,10 +34,6 @@ class SearcButtons extends Component {
         return this.props.actions.stop_twitter_stream(payload);
     }
 
-    componentWillReceiveProps(nextProps, nextState) {
-        console.log(nextProps.state.reducer);
-    }
-
     start_twitter_stream() {
 
         let stompClient = null;
@@ -87,6 +83,7 @@ class SearcButtons extends Component {
                         Object.entries(locationMap).forEach(([key, value]) => {
                             if (key === tweet.word) {
                                 payload_location.data.location[tweet.word] = value + 1;
+                                
                             }
                         }
                         );

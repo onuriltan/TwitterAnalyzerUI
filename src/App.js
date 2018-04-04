@@ -18,7 +18,6 @@ class App extends Component {
                     person: { },
                     location: { },
                     organization: { },
-                    title: { },
                     others: { }
                 }
             }
