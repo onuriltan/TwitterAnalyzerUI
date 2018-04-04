@@ -18,6 +18,7 @@ export default class extends Component {
             <div className="board">
                 <Tabs>
                     <Tab
+                        className="tab"
                         icon={<FontIcon className="material-icons">pie_chart</FontIcon>}
                         label="CHARTS">
                         <div className="board1">
@@ -30,7 +31,9 @@ export default class extends Component {
                             <OthersChart chartData={this.props.chart} />
                         </div>
                     </Tab>
-                    <Tab icon={<FontIcon className="material-icons">location_on</FontIcon>}
+                    <Tab 
+                        className="tab"
+                        icon={<FontIcon className="material-icons">location_on</FontIcon>}
                         label="TWEETMAP">
 
 
