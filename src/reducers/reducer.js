@@ -8,6 +8,7 @@ import {
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
     UPDATE_OTHERS_DATA,
+    RESET_DATA,
     SET_KEYWORD_FIELD
 } from '../actions/action_types';
 
@@ -69,6 +70,13 @@ export default function reducer(state = initialState, action) {
             return update(
                 state, {
                     others: { $merge: action.payload.data.others }
+                }
+            );
+
+        case RESET_DATA:
+            return update(
+                state, {
+                    $merge: action.payload.data
                 }
             );
 

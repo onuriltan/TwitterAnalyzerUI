@@ -76,7 +76,7 @@ class PersonChart extends Component {
 
             for (var i = 0; i < tuples.length; i++) {
                 if (i < 5) {
-                    let key = tuples[i][0];
+                    let key = tuples[i][0]+" - "+tuples[i][1];;
                     let value = tuples[i][1];
 
                     updatedData.labels.push(key);

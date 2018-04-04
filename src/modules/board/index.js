@@ -11,6 +11,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon'
 
 
+
 export default class extends Component {
 
     render() {
@@ -18,9 +19,10 @@ export default class extends Component {
             <div className="board">
                 <Tabs>
                     <Tab
-                        className="tab"
                         icon={<FontIcon className="material-icons">pie_chart</FontIcon>}
-                        label="CHARTS">
+                        label="CHARTS"
+                        className="customtab"
+                    >
                         <div className="board1">
                             <PersonChart chartData={this.props.chart} />
                             <LocationChart chartData={this.props.chart} />
@@ -31,10 +33,11 @@ export default class extends Component {
                             <OthersChart chartData={this.props.chart} />
                         </div>
                     </Tab>
-                    <Tab 
-                        className="tab"
+                    <Tab
                         icon={<FontIcon className="material-icons">location_on</FontIcon>}
-                        label="TWEETMAP">
+                        label="TWEETMAP"
+                        className="customtab"
+                    >
 
 
                     </Tab>

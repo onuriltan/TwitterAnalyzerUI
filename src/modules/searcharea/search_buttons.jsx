@@ -12,16 +12,27 @@ import PropTypes from 'prop-types';
 
 class SearcButtons extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            start_disabled: false,
+            stop_disabled: true
+        };
+    }
+
     render() {
         return (
             <div className="searchbuttons">
-                <RaisedButton className="bttn" label="Start" onClick={() => this.start_twitter_stream()} />
-                <RaisedButton className="bttn" label="Stop" onClick={() => this.stop_twitter_stream()} />
+                <RaisedButton disabled={this.state.start_disabled} className="bttn" label="Start" onClick={() => this.start_twitter_stream()} />
+                <RaisedButton disabled={this.state.stop_disabled} className="bttn" label="Stop" onClick={() => this.stop_twitter_stream()} />
             </div>
         );
     }
 
     stop_twitter_stream() {
+        this.setState({ stop_disabled: true });
+        this.setState({ start_disabled: false });
+
         var socketConnection = this.props.state.reducer.socketConnection;
         socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
         socketConnection.disconnect();
@@ -35,6 +46,23 @@ class SearcButtons extends Component {
     }
 
     start_twitter_stream() {
+        this.setState({ start_disabled: true });
+        this.setState({ stop_disabled: false });
+
+        var payload = {
+            data: {
+                socketConnection: null,
+                keyword: null,
+                person: {},
+                location: {},
+                organization: {},
+                others: {}
+            }
+        }
+        this.props.newDataListener(payload);
+        this.props.actions.reset_data(payload);
+
+
 
         let stompClient = null;
         var that = this;
@@ -85,7 +113,7 @@ class SearcButtons extends Component {
                         Object.entries(locationMap).forEach(([key, value]) => {
                             if (key === tweet.word) {
                                 payload_location.data.location[tweet.word] = value + 1;
-                                
+
                             }
                         }
                         );
