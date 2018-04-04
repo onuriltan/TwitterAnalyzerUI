@@ -49,7 +49,8 @@ class SearcButtons extends Component {
                         data: {
                             person: that.props.state.reducer.person,
                             location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization
+                            organization: that.props.state.reducer.organization,
+                            others: that.props.state.reducer.others
                         }
                     }
                     let personMap = that.props.state.reducer.person;
@@ -75,7 +76,8 @@ class SearcButtons extends Component {
                         data: {
                             person: that.props.state.reducer.person,
                             location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization
+                            organization: that.props.state.reducer.organization,
+                            others: that.props.state.reducer.others
                         }
                     }
                     let locationMap = that.props.state.reducer.location;
@@ -100,7 +102,8 @@ class SearcButtons extends Component {
                         data: {
                             person: that.props.state.reducer.person,
                             location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization
+                            organization: that.props.state.reducer.organization,
+                            others: that.props.state.reducer.others
                         }
                     }
                     let organizationMap = that.props.state.reducer.organization;
@@ -119,9 +122,12 @@ class SearcButtons extends Component {
                     that.props.newDataListener(payload_organization);
                 }
 
-                /*else {
+                else {
                     var payload_others = {
                         data: {
+                            person: that.props.state.reducer.person,
+                            location: that.props.state.reducer.location,
+                            organization: that.props.state.reducer.organization,
                             others: that.props.state.reducer.others
                         }
                     }
@@ -139,7 +145,7 @@ class SearcButtons extends Component {
                     }
                     that.props.actions.update_others_data(payload_others);
                     that.props.newDataListener(payload_others);
-                }*/
+                }
 
 
 

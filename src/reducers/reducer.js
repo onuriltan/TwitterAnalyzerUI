@@ -7,6 +7,7 @@ import {
     UPDATE_PERSON_DATA,
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
+    UPDATE_OTHERS_DATA,
     SET_KEYWORD_FIELD
 } from '../actions/action_types';
 
@@ -49,7 +50,7 @@ export default function reducer(state = initialState, action) {
                     person: { $merge: action.payload.data.person }
                 }
             );
-         
+
         case UPDATE_LOCATION_DATA:
             return update(
                 state, {
@@ -61,6 +62,13 @@ export default function reducer(state = initialState, action) {
             return update(
                 state, {
                     organization: { $merge: action.payload.data.organization }
+                }
+            );
+
+        case UPDATE_OTHERS_DATA:
+            return update(
+                state, {
+                    others: { $merge: action.payload.data.others }
                 }
             );
 

@@ -22,7 +22,7 @@ class TitleChart extends Component {
 
         return (
             <div className="chart">
-             <label className="description"> {!dataNull() ? "Others" : ""} </label>
+                <label className="description"> {!dataNull() ? "Others" : ""} </label>
                 <Pie data={data}
                     options={{
                         responsive: false,
@@ -73,7 +73,7 @@ class TitleChart extends Component {
                 a = a[1];
                 b = b[1];
 
-                return a < b ? -1 : (a > b ? 1 : 0);
+                return a > b ? -1 : (a < b ? 1 : 0);
             });
 
             for (var i = 0; i < tuples.length; i++) {

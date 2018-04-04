@@ -5,6 +5,7 @@ import {
     UPDATE_PERSON_DATA,
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
+    UPDATE_OTHERS_DATA,
     SET_KEYWORD_FIELD
 }from '../actions/action_types';
 
@@ -51,6 +52,14 @@ export function update_location_data(state) {
 export function update_organization_data(state) {
     return {
         type: UPDATE_ORGANIZATION_DATA,
+        payload: state
+    };
+
+}
+
+export function update_others_data(state) {
+    return {
+        type: UPDATE_OTHERS_DATA,
         payload: state
     };
 
