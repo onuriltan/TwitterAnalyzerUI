@@ -26,6 +26,8 @@ class SearchField extends Component {
         <TextField
           hintText="Keyword"
           floatingLabelText="Enter keyword"
+          floatingLabelFocusStyle={{color: 'black'}}
+          underlineFocusStyle={{borderColor: '#ff4081'}}
           type="keyword"
           onChange={this.change_keyword}
         />
