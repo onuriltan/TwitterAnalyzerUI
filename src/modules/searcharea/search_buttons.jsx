@@ -9,15 +9,20 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import PropTypes from 'prop-types';
 
+const targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
+
 
 class SearcButtons extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            targetSVG: targetSVG,
             start_disabled: false,
             stop_disabled: true
         };
+       
+
     }
 
     render() {
@@ -56,12 +61,13 @@ class SearcButtons extends Component {
                 person: {},
                 location: {},
                 organization: {},
+                tweetlocation: [],
                 others: {}
             }
         }
-        this.props.newDataListener(payload);
+     
+        this.props.newChartDataListener(payload);
         this.props.actions.reset_data(payload);
-
 
 
         let stompClient = null;
@@ -72,6 +78,26 @@ class SearcButtons extends Component {
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/topic/fetchTwitterStream', function (tokenizedTweet) {
                 let tweet = JSON.parse(tokenizedTweet.body);
+                if (tweet.latitude !== null && tweet.longitude !== null) {
+                    let payload = {
+                        data: {
+                            tweetlocation: that.props.state.reducer.tweetlocation,
+                        }
+                    }
+                    payload.data.tweetlocation.push(
+                        {
+                            "svgPath": that.state.targetSVG,
+                            "zoomLevel":5,
+                            "scale": 0.5,
+                            "title": tweet.tweet,
+                            "latitude": tweet.latitude,
+                            "longitude": tweet.longitude
+                        }
+                    );
+                    that.props.actions.update_tweetlocation_data(payload);
+                    that.props.newMapDataListener(payload);
+
+                }
                 if (tweet.namedEntity === 'PERSON') {
                     var payload_person = {
                         data: {
@@ -95,7 +121,7 @@ class SearcButtons extends Component {
                     }
 
                     that.props.actions.update_person_data(payload_person);
-                    that.props.newDataListener(payload_person);
+                    that.props.newChartDataListener(payload_person);
 
                 }
 
@@ -122,7 +148,7 @@ class SearcButtons extends Component {
                         payload_location.data.location[tweet.word] = 1;
                     }
                     that.props.actions.update_location_data(payload_location);
-                    that.props.newDataListener(payload_location);
+                    that.props.newChartDataListener(payload_location);
                 }
 
                 if (tweet.namedEntity === 'ORGANIZATION') {
@@ -147,7 +173,7 @@ class SearcButtons extends Component {
                         payload_organization.data.organization[tweet.word] = 1;
                     }
                     that.props.actions.update_organization_data(payload_organization);
-                    that.props.newDataListener(payload_organization);
+                    that.props.newChartDataListener(payload_organization);
                 }
 
                 else {
@@ -172,7 +198,7 @@ class SearcButtons extends Component {
                         payload_others.data.others[tweet.word] = 1;
                     }
                     that.props.actions.update_others_data(payload_others);
-                    that.props.newDataListener(payload_others);
+                    that.props.newChartDataListener(payload_others);
                 }
 
 

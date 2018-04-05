@@ -8,11 +8,15 @@ import './App.scss';
 import SearchArea from './modules/searcharea';
 import Board from './modules/board';
 
+
+
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            mapData: [ ],
+
             chartData: {
                 data: {
                     person: { },
@@ -24,16 +28,20 @@ class App extends Component {
         }
     }
 
-    handleNewData(chartData) {
-        this.setState({ chartData: chartData })
+    handleChartData(chartData) {
+        this.setState({ chartData : chartData });
+    }
+
+    handleMapData(mapData) {
+        this.setState({ mapData : mapData });
     }
 
     render() {
         return (
             <MuiThemeProvider>
                 <div className="main">
-                    <SearchArea newDataListener={this.handleNewData.bind(this)} />
-                    <Board chart={this.state.chartData} />
+                    <SearchArea newChartDataListener={this.handleChartData.bind(this)} newMapDataListener={this.handleMapData.bind(this)} />
+                    <Board chartData={this.state.chartData} mapData={this.state.mapData} />
                 </div>
             </MuiThemeProvider>
 

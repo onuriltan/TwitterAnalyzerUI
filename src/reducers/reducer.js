@@ -8,6 +8,7 @@ import {
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
     UPDATE_OTHERS_DATA,
+    UPDATE_TWEETLOCATION_DATA,
     RESET_DATA,
     SET_KEYWORD_FIELD
 } from '../actions/action_types';
@@ -16,7 +17,9 @@ import initialState from './initial_state';
 
 
 export default function reducer(state = initialState, action) {
+    
     switch (action.type) {
+
         case BUILD_TWITTER_STREAM:
             return update(
                 state, {
@@ -70,6 +73,12 @@ export default function reducer(state = initialState, action) {
             return update(
                 state, {
                     others: { $merge: action.payload.data.others }
+                }
+            );
+        case UPDATE_TWEETLOCATION_DATA:
+            return update(
+                state, {
+                    tweetlocation: { $merge: action.payload.data.tweetlocation }
                 }
             );
 

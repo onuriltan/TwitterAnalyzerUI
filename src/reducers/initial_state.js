@@ -4,5 +4,6 @@ export default {
     location           : { }, 
     organization       : { },
     person             : { },
+    tweetlocation      : [ ],
     others             : { }
 }
