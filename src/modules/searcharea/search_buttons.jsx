@@ -21,7 +21,6 @@ class SearcButtons extends Component {
             start_disabled: false,
             stop_disabled: true
         };
-       
 
     }
 
@@ -53,21 +52,21 @@ class SearcButtons extends Component {
     start_twitter_stream() {
         this.setState({ start_disabled: true });
         this.setState({ stop_disabled: false });
-
-        var payload = {
-            data: {
-                socketConnection: null,
-                keyword: null,
-                person: {},
-                location: {},
-                organization: {},
-                tweetlocation: [],
-                others: {}
+        if (this.props.state.reducer.initialload === false) {
+            var payload = {
+                data: {
+                    socketConnection: null,
+                    person: {},
+                    location: {},
+                    organization: {},
+                    tweetlocation: [],
+                    others: {}
+                }
             }
+
+            this.props.newChartDataListener(payload);
+            this.props.actions.reset_data(payload);
         }
-     
-        this.props.newChartDataListener(payload);
-        this.props.actions.reset_data(payload);
 
 
         let stompClient = null;
@@ -77,7 +76,28 @@ class SearcButtons extends Component {
         stompClient.debug = null;
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/topic/fetchTwitterStream', function (tokenizedTweet) {
+                let payload_initialload = {
+                    data: {
+                        initialload: that.props.state.reducer.initialload,
+                    }
+                }
+                that.props.actions.update_inital_load(payload_initialload);
                 let tweet = JSON.parse(tokenizedTweet.body);
+
+                if (tweet.forStreamPanel === true) {
+                    let payload = {
+                        data: {
+                            tweets: that.props.state.reducer.tweets,
+                        }
+                    }
+                    payload.data.tweets.push(
+                        {
+                            "tweet": tweet.tweet,
+                        }
+                    );
+                    that.props.actions.update_tweets_data(payload);
+                    that.props.newTweetPanelListener(payload);
+                }
                 if (tweet.latitude !== null && tweet.longitude !== null) {
                     let payload = {
                         data: {
@@ -87,7 +107,7 @@ class SearcButtons extends Component {
                     payload.data.tweetlocation.push(
                         {
                             "svgPath": that.state.targetSVG,
-                            "zoomLevel":5,
+                            "zoomLevel": 5,
                             "scale": 0.5,
                             "title": tweet.tweet,
                             "latitude": tweet.latitude,

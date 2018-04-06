@@ -13,7 +13,7 @@ export default class extends Component {
             <div className = "searcharea">
                 <Description />
                 <SearchField />
-                <SearchButtons newChartDataListener={this.props.newChartDataListener} newMapDataListener={this.props.newMapDataListener}/>
+                <SearchButtons newChartDataListener={this.props.newChartDataListener} newMapDataListener={this.props.newMapDataListener} newTweetPanelListener={this.props.newTweetPanelListener}/>
             </div>
         );
     }

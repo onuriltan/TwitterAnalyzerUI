@@ -12,16 +12,9 @@ class LocationChart extends Component {
     render() {
         var data = this.fetch_chartdata_from_global_state();
 
-        function dataNull() {
-            if (Object.keys(data.labels).length !== 0) {
-                return false;
-            }
-            return true;
-
-        }
         return (
             <div className="chart">
-             <label className="description"> {!dataNull() ? "Location" : ""} </label>
+                <label className="description"> Location </label>
                 <Pie data={data}
                     options={{
                         responsive: false,
@@ -77,13 +70,18 @@ class LocationChart extends Component {
 
             for (var i = 0; i < tuples.length; i++) {
                 if (i < 5) {
-                    let key = tuples[i][0]+" - "+tuples[i][1];
+                    let key = tuples[i][0] + " - " + tuples[i][1];
                     let value = tuples[i][1];
 
                     updatedData.labels.push(key);
                     updatedData.datasets[0].data.push(value);
                 }
             }
+
+        }
+        else {
+            updatedData.labels.push("No Data");
+            updatedData.datasets[0].data.push(1);
         }
         return updatedData;
 

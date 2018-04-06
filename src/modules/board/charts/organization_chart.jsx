@@ -11,17 +11,9 @@ class OrganizationChart extends Component {
     render() {
         var data = this.fetch_chartdata_from_global_state();
 
-        function dataNull() {
-            if (Object.keys(data.labels).length !== 0) {
-                return false;
-            }
-            return true;
-
-        }
-
         return (
             <div className="chart">
-                <label className="description"> {!dataNull() ? "Organization" : ""} </label>
+                <label className="description"> Organization </label>
                 <Pie data={data}
                     options={{
                         responsive: false,
@@ -44,15 +36,15 @@ class OrganizationChart extends Component {
             datasets: [{
                 data: [],
                 backgroundColor: [
-                    '#FF6384',
                     '#36A2EB',
+                    '#FF6384',
                     '#FFCE56',
                     '#FF0000',
                     '#8A46FF'
                 ],
                 hoverBackgroundColor: [
-                    '#FF6384',
                     '#36A2EB',
+                    '#FF6384',
                     '#FFCE56',
                     '#FF0000',
                     '#8A46FF'
@@ -86,8 +78,13 @@ class OrganizationChart extends Component {
                 }
             }
         }
+        else {
+            updatedData.labels.push("No Data");
+            updatedData.datasets[0].data.push(1);
+        }
         return updatedData;
     }
+    
 
 
 }

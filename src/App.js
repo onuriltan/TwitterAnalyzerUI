@@ -16,7 +16,7 @@ class App extends Component {
         super(props);
         this.state = {
             mapData: [ ],
-
+            tweetData : [ ], 
             chartData: {
                 data: {
                     person: { },
@@ -35,13 +35,16 @@ class App extends Component {
     handleMapData(mapData) {
         this.setState({ mapData : mapData });
     }
+    handleTweetPanelData(tweetData) {
+        this.setState({ tweetData : tweetData });
+    }
 
     render() {
         return (
             <MuiThemeProvider>
                 <div className="main">
-                    <SearchArea newChartDataListener={this.handleChartData.bind(this)} newMapDataListener={this.handleMapData.bind(this)} />
-                    <Board chartData={this.state.chartData} mapData={this.state.mapData} />
+                    <SearchArea newChartDataListener={this.handleChartData.bind(this)} newMapDataListener={this.handleMapData.bind(this)} newTweetPanelListener={this.handleTweetPanelData.bind(this)}/>
+                    <Board chartData={this.state.chartData} mapData={this.state.mapData} tweetData={this.state.tweetData}/>
                 </div>
             </MuiThemeProvider>
 

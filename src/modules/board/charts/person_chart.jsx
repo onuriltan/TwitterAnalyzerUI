@@ -10,17 +10,10 @@ class PersonChart extends Component {
     render() {
 
         var data = this.fetch_chartdata_from_global_state();
-        function dataNull() {
-            if (Object.keys(data.labels).length !== 0) {
-                return false;
-            }
-            return true;
-
-        }
 
         return (
             <div className="chart">
-             <label className="description"> {!dataNull() ? "Person" : ""} </label>
+                <label className="description"> Person </label>
                 <Pie data={data}
                     options={{
                         responsive: false,
@@ -42,17 +35,17 @@ class PersonChart extends Component {
             datasets: [{
                 data: [],
                 backgroundColor: [
+                    '#FF0000',
                     '#FF6384',
                     '#36A2EB',
                     '#FFCE56',
-                    '#FF0000',
                     '#8A46FF'
                 ],
                 hoverBackgroundColor: [
+                    '#FF0000',
                     '#FF6384',
                     '#36A2EB',
                     '#FFCE56',
-                    '#FF0000',
                     '#8A46FF'
                 ]
             }]
@@ -76,13 +69,17 @@ class PersonChart extends Component {
 
             for (var i = 0; i < tuples.length; i++) {
                 if (i < 5) {
-                    let key = tuples[i][0]+" - "+tuples[i][1];;
+                    let key = tuples[i][0] + " - " + tuples[i][1];;
                     let value = tuples[i][1];
 
                     updatedData.labels.push(key);
                     updatedData.datasets[0].data.push(value);
                 }
             }
+        }
+        else {
+            updatedData.labels.push("No Data");
+            updatedData.datasets[0].data.push(1);
         }
         return updatedData;
 

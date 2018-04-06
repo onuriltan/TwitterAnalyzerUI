@@ -4,6 +4,8 @@ import {
     BUILD_TWITTER_STREAM,
     START_TWITTER_STREAM,
     STOP_TWITTER_STREAM,
+    UPDATE_INITIAL_LOAD,
+    UPDATE_TWEETS_DATA,
     UPDATE_PERSON_DATA,
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
@@ -17,7 +19,7 @@ import initialState from './initial_state';
 
 
 export default function reducer(state = initialState, action) {
-    
+
     switch (action.type) {
 
         case BUILD_TWITTER_STREAM:
@@ -41,10 +43,25 @@ export default function reducer(state = initialState, action) {
                 }
             );
 
+
         case SET_KEYWORD_FIELD:
             return update(
                 state, {
                     keyword: { $set: action.payload.data.keyword }
+                }
+            );
+
+        case UPDATE_INITIAL_LOAD:
+            return update(
+                state, {
+                    initialload: { $set: action.payload.data.initialload }
+                }
+            );
+
+        case UPDATE_TWEETS_DATA:
+            return update(
+                state, {
+                    tweets: { $merge: action.payload.data.tweets }
                 }
             );
 

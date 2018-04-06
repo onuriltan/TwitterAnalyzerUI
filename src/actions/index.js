@@ -2,6 +2,8 @@ import {
     BUILD_TWITTER_STREAM,
     START_TWITTER_STREAM,
     STOP_TWITTER_STREAM,
+    UPDATE_INITIAL_LOAD,
+    UPDATE_TWEETS_DATA,
     UPDATE_PERSON_DATA,
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
@@ -9,7 +11,7 @@ import {
     UPDATE_TWEETLOCATION_DATA,
     RESET_DATA,
     SET_KEYWORD_FIELD
-}from '../actions/action_types';
+} from '../actions/action_types';
 
 export function build_twitter_stream(state) {
     return {
@@ -28,6 +30,22 @@ export function start_twitter_stream(state) {
 export function stop_twitter_stream(state) {
     return {
         type: STOP_TWITTER_STREAM,
+        payload: state
+    };
+
+}
+
+export function update_inital_load(state) {
+    return {
+        type: UPDATE_INITIAL_LOAD,
+        payload: state
+    };
+
+}
+
+export function update_tweets_data(state) {
+    return {
+        type: UPDATE_TWEETS_DATA,
         payload: state
     };
 

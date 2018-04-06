@@ -12,17 +12,9 @@ class TitleChart extends Component {
     render() {
         var data = this.fetch_chartdata_from_global_state();
 
-        function dataNull() {
-            if (Object.keys(data.labels).length !== 0) {
-                return false;
-            }
-            return true;
-
-        }
-
         return (
             <div className="chart">
-                <label className="description"> {!dataNull() ? "Others" : ""} </label>
+                <label className="description"> Others </label>
                 <Pie data={data}
                     options={{
                         responsive: false,
@@ -45,16 +37,16 @@ class TitleChart extends Component {
             datasets: [{
                 data: [],
                 backgroundColor: [
+                    '#FFCE56',
                     '#FF6384',
                     '#36A2EB',
-                    '#FFCE56',
                     '#FF0000',
                     '#8A46FF'
                 ],
                 hoverBackgroundColor: [
+                    '#FFCE56',
                     '#FF6384',
                     '#36A2EB',
-                    '#FFCE56',
                     '#FF0000',
                     '#8A46FF'
                 ]
@@ -85,6 +77,10 @@ class TitleChart extends Component {
                     updatedData.datasets[0].data.push(value);
                 }
             }
+        }
+        else {
+            updatedData.labels.push("No Data");
+            updatedData.datasets[0].data.push(1);
         }
         return updatedData;
 

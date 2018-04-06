@@ -1,23 +1,30 @@
-.board1 {
-    display: flex;
-    justify-content: center;
-    margin: 1em 10em;
-}
-.board2 {
-    display: flex;
-    justify-content: center;
-    margin: 1em 10em;
-}
-.chart {
-    height: 25em;
-    width: 20em;
-    margin: 1em 10em;
-}
-.customtab {
-    background-color: white !important;
-    color: black !important;
-}
-.material-icons {
-    color: black !important;   
+.board {
+    .fab {
+        color: black !important;
+    }
+
+    .material-icons {
+        color: black !important;   
+    }
+    .board1 {
+        display: flex;
+        justify-content: center;
+        margin: 1em 10em;
+    }
+    .board2 {
+        display: flex;
+        justify-content: center;
+        margin: 1em 10em;
+    }
+    .chart {
+        height: 25em;
+        width: 20em;
+        margin: 1em 10em;
+    }
+    .customtab {
+        background-color: white !important;
+        color: black !important;
+    }
+
 }
 
