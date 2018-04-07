@@ -10,7 +10,7 @@ import {
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
     UPDATE_OTHERS_DATA,
-    UPDATE_TWEETLOCATION_DATA,
+    UPDATE_TWEETSLOCATION_DATA,
     RESET_DATA,
     SET_KEYWORD_FIELD
 } from '../actions/action_types';
@@ -92,10 +92,10 @@ export default function reducer(state = initialState, action) {
                     others: { $merge: action.payload.data.others }
                 }
             );
-        case UPDATE_TWEETLOCATION_DATA:
+        case UPDATE_TWEETSLOCATION_DATA:
             return update(
                 state, {
-                    tweetlocation: { $merge: action.payload.data.tweetlocation }
+                    tweetslocation: { $merge: action.payload.data.tweetslocation }
                 }
             );
 

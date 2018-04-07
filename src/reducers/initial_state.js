@@ -6,6 +6,6 @@ export default {
     location           : { }, 
     organization       : { },
     person             : { },
-    tweetlocation      : [ ],
+    tweetslocation      : [ ],
     others             : { }
 }

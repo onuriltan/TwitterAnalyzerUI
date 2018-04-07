@@ -4,10 +4,11 @@ import AmCharts from '@amcharts/amcharts3-react';
 import 'ammap3/ammap/ammap.js';
 
 class WorldMap extends Component {
-    
-    render() {
-        let mapData = this.props.mapData.data ? this.props.mapData.data.tweetlocation : [];
 
+    render() {
+
+        var mapData = this.props.mapData.data.tweetslocation;
+       
         return (
             <div id="worldmap" >
                 <AmCharts.React
@@ -34,16 +35,18 @@ class WorldMap extends Component {
 
                         "dataProvider": {
                             "map": "worldLow",
-                            "images": mapData
+                            "images": mapData,
                         },
                         "export": {
                             "enabled": true
                         }
                     }} />
+
             </div>
+
         );
     }
-   
+
 
 
 }

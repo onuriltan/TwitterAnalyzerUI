@@ -8,7 +8,7 @@ import {
     UPDATE_LOCATION_DATA,
     UPDATE_ORGANIZATION_DATA,
     UPDATE_OTHERS_DATA,
-    UPDATE_TWEETLOCATION_DATA,
+    UPDATE_TWEETSLOCATION_DATA,
     RESET_DATA,
     SET_KEYWORD_FIELD
 } from '../actions/action_types';
@@ -85,9 +85,9 @@ export function update_others_data(state) {
 
 }
 
-export function update_tweetlocation_data(state) {
+export function update_tweetslocation_data(state) {
     return {
-        type: UPDATE_TWEETLOCATION_DATA,
+        type: UPDATE_TWEETSLOCATION_DATA,
         payload: state
     };
 

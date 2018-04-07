@@ -59,7 +59,7 @@ class SearcButtons extends Component {
                     person: {},
                     location: {},
                     organization: {},
-                    tweetlocation: [],
+                    tweetslocation: [],
                     others: {}
                 }
             }
@@ -101,10 +101,10 @@ class SearcButtons extends Component {
                 if (tweet.latitude !== null && tweet.longitude !== null) {
                     let payload = {
                         data: {
-                            tweetlocation: that.props.state.reducer.tweetlocation,
+                            tweetslocation: that.props.state.reducer.tweetslocation,
                         }
                     }
-                    payload.data.tweetlocation.push(
+                    payload.data.tweetslocation.push(
                         {
                             "svgPath": that.state.targetSVG,
                             "zoomLevel": 5,
@@ -114,7 +114,7 @@ class SearcButtons extends Component {
                             "longitude": tweet.longitude
                         }
                     );
-                    that.props.actions.update_tweetlocation_data(payload);
+                    that.props.actions.update_tweetslocation_data(payload);
                     that.props.newMapDataListener(payload);
 
                 }
