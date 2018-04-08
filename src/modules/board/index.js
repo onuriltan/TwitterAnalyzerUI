@@ -20,7 +20,14 @@ export default class extends Component {
             <div className="board">
                 <Tabs>
                     <Tab
-                        icon={<i className = "fab fa-twitter" ></i>}
+                        icon={<FontIcon className="material-icons">location_on</FontIcon>}
+                        label="TWEETMAP"
+                        className="customtab">
+                        <WorldMap mapData={this.props.mapData} />
+
+                    </Tab>
+                    <Tab
+                        icon={<i className="fab fa-twitter" ></i>}
                         label="TWEET PANEL"
                         className="customtab">
 
@@ -44,13 +51,7 @@ export default class extends Component {
                         </div>
 
                     </Tab>
-                    <Tab
-                        icon={<FontIcon className="material-icons">location_on</FontIcon>}
-                        label="TWEETMAP"
-                        className="customtab">
-                        <WorldMap mapData={this.props.mapData} />
 
-                    </Tab>
 
 
                 </Tabs>

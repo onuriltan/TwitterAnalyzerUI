@@ -92,9 +92,11 @@ class SearcButtons extends Component {
                     }
                     payload.data.tweets.push(
                         {
+                            "username":tweet.username,
                             "tweet": tweet.tweet,
                         }
                     );
+                    console.log(tweet);
                     that.props.actions.update_tweets_data(payload);
                     that.props.newTweetPanelListener(payload);
                 }
