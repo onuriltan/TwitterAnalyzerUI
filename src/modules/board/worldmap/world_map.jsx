@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import AmCharts from '@amcharts/amcharts3-react';
-import 'ammap3/ammap/ammap.js';
 
 class WorldMap extends Component {
 
