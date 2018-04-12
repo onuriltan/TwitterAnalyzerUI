@@ -10,7 +10,8 @@ import {
     UPDATE_OTHERS_DATA,
     UPDATE_TWEETSLOCATION_DATA,
     RESET_DATA,
-    SET_KEYWORD_FIELD
+    SET_KEYWORD_FIELD,
+    SET_CSRF_TOKEN
 } from '../actions/action_types';
 
 export function build_twitter_stream(state) {
@@ -104,6 +105,14 @@ export function reset_data(state) {
 export function set_keyword_field(state) {
     return {
         type: SET_KEYWORD_FIELD,
+        payload: state
+    };
+
+}
+
+export function set_csrf_token(state) {
+    return {
+        type: SET_CSRF_TOKEN,
         payload: state
     };
 

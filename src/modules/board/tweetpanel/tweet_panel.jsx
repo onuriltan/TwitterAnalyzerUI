@@ -25,7 +25,6 @@ class TweetPanel extends Component {
     }
 
     render() {
-        console.log(this.props.tweetData.data);
 
         return (
             <DataTables

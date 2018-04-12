@@ -1,15 +1,17 @@
+
 import React, { Component } from 'react';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
+//import axios from 'axios';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import PropTypes from 'prop-types';
 
-const targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 
 
 class SearcButtons extends Component {
@@ -17,12 +19,13 @@ class SearcButtons extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            targetSVG: targetSVG,
             start_disabled: false,
             stop_disabled: true
         };
 
     }
+
+
 
     render() {
         return (
@@ -38,18 +41,35 @@ class SearcButtons extends Component {
         this.setState({ start_disabled: false });
 
         var socketConnection = this.props.state.reducer.socketConnection;
-        socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
-        socketConnection.disconnect();
-        let payload = {
-            data: {
-                socketConnection: null
+        if (socketConnection != null) {
+            socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
+            socketConnection.disconnect();
+            let payload = {
+                data: {
+                    socketConnection: null
+                }
             }
-        }
 
-        return this.props.actions.stop_twitter_stream(payload);
+            return this.props.actions.stop_twitter_stream(payload);
+        }
     }
 
     start_twitter_stream() {
+
+        /*async function getCsrfToken(url) {
+            const result = await axios.get(url)
+            return result;
+        }
+        var payload_csrf = {
+            data: {
+                csrf: getCsrfToken('/csrf')
+            }
+        }
+
+        this.props.actions.set_csrf_token(payload_csrf);
+        console.log(this.props.state.reducer.csrf);*/
+
+
         this.setState({ start_disabled: true });
         this.setState({ stop_disabled: false });
         if (this.props.state.reducer.initialload === false) {
@@ -71,8 +91,17 @@ class SearcButtons extends Component {
 
         let stompClient = null;
         var that = this;
-        let socket = new SockJS('http://localhost:3001/twitterStream');
+        let socket;
+        if (process.env.NODE_ENV === "development") {
+            socket = new SockJS('http://localhost:8080/twitterStream');
+        }
+        if (process.env.NODE_ENV === "production") {
+            socket = new SockJS(''); // TODO : define production url
+        }
+        console.log(socket)
         stompClient = Stomp.over(socket);
+        console.log(stompClient)
+
         stompClient.debug = null;
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/topic/fetchTwitterStream', function (tokenizedTweet) {
@@ -83,6 +112,8 @@ class SearcButtons extends Component {
                 }
                 that.props.actions.update_inital_load(payload_initialload);
                 let tweet = JSON.parse(tokenizedTweet.body);
+                console.log(tweet)
+
 
                 if (tweet.forStreamPanel === true) {
                     let payload = {
@@ -92,11 +123,10 @@ class SearcButtons extends Component {
                     }
                     payload.data.tweets.push(
                         {
-                            "username":tweet.username,
+                            "username": tweet.username,
                             "tweet": tweet.tweet,
                         }
                     );
-                    console.log(tweet);
                     that.props.actions.update_tweets_data(payload);
                     that.props.newTweetPanelListener(payload);
                 }
@@ -108,7 +138,7 @@ class SearcButtons extends Component {
                     }
                     payload.data.tweetslocation.push(
                         {
-                            "svgPath": that.state.targetSVG,
+                            "svgPath": that.props.state.reducer.targetSVG,
                             "zoomLevel": 5,
                             "scale": 0.5,
                             "title": tweet.tweet,

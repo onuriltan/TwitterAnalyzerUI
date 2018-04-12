@@ -34,7 +34,7 @@ class WorldMap extends Component {
                 options={{
                     "type": "map",
                     "projection": "winkel3",
-                    "theme": "light",
+                    "theme": "dark",
                     "imagesSettings": {
                         "rollOverColor": "#089282",
                         "rollOverScale": 3,

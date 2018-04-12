@@ -12,7 +12,9 @@ import {
     UPDATE_OTHERS_DATA,
     UPDATE_TWEETSLOCATION_DATA,
     RESET_DATA,
-    SET_KEYWORD_FIELD
+    SET_KEYWORD_FIELD,
+    SET_CSRF_TOKEN
+
 } from '../actions/action_types';
 
 import initialState from './initial_state';
@@ -48,6 +50,13 @@ export default function reducer(state = initialState, action) {
             return update(
                 state, {
                     keyword: { $set: action.payload.data.keyword }
+                }
+            );
+
+        case SET_CSRF_TOKEN:
+            return update(
+                state, {
+                    csrf: { $set: action.payload.data.csrf }
                 }
             );
 

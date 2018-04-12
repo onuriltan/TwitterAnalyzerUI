@@ -22,6 +22,13 @@
   <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
   <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
   <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+
+  <script>
+    // before React is loaded, disable react devtools in production
+    if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
+        __REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function() {};
+    }
+</script>
  
   <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
   <!--
