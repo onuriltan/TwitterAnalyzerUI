@@ -26,7 +26,6 @@ class WorldMap extends Component {
         );
 
         function createChart(mapData) {
-            console.log(mapData)
             return <AmCharts.React
                 style={{
                     width: "100%",
