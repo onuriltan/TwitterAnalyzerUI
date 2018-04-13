@@ -12,7 +12,7 @@ class SearchField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialState: this.props.state.reducer
+      initialState: this.props.state.reducer,
     };
     this.change_keyword = this.change_keyword.bind(this);
 

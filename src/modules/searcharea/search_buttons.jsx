@@ -179,7 +179,7 @@ class SearcButtons extends Component {
 
                 }
 
-                if (tweet.namedEntity === 'LOCATION') {
+                if (tweet.namedEntity === 'LOCATION' || tweet.namedEntity === 'COUNTRY' || tweet.namedEntity === 'STATE_OR_PROVINCE') {
                     var payload_location = {
                         data: {
                             person: that.props.state.reducer.person,
