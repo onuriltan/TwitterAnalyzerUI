@@ -1,17 +1,7 @@
-FROM node:8
-
-ADD yarn.lock /yarn.lock
-ADD package.json /package.json
-
-ENV NODE_PATH=/node_modules
-ENV PATH=$PATH:/node_modules/.bin
-RUN yarn
-
-WORKDIR /app
-ADD . /app
-
-EXPOSE 3000
-EXPOSE 35729
-
-ENTRYPOINT ["/bin/bash", "/app/run.sh"]
-CMD ["start"]
+FROM node as build
+COPY . .
+RUN npm install
+RUN npm run build
+RUN npm install -g serve
+EXPOSE 5000
+CMD [ "serve", "-s", "build" ]
