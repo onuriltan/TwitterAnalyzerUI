@@ -2,7 +2,6 @@
   "name": "twitteranalyzerui",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://localhost/twitteranalyzer",
   "dependencies": {
     "ammap3": "github:amcharts/ammap3",
     "autoprefixer": "7.1.6",
