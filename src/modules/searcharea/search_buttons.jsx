@@ -98,7 +98,7 @@ class SearcButtons extends Component {
         var that = this;
         let socket;
         if (process.env.NODE_ENV === "development") {
-            socket = new SockJS('http://localhost:8080/twitterStream');
+            socket = new SockJS('https://twitter-analyzer-core.herokuapp.com/twitterStream');
         }
         if (process.env.NODE_ENV === "production") {
             socket = new SockJS(''); // TODO : define production url
