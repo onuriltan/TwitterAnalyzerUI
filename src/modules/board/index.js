@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import '../board/style.scss';
 
-import PersonChart from './charts/person_chart';
+/*import PersonChart from './charts/person_chart';
 import LocationChart from './charts/location_chart';
 import OrganizationChart from './charts/organization_chart';
-import OthersChart from './charts/others_chart';
+import OthersChart from './charts/others_chart';*/
 import WorldMap from './worldmap/world_map';
 import TweetPanel from './tweetpanel/tweet_panel';
 
@@ -35,7 +35,7 @@ export default class extends Component {
 
                     </Tab>
 
-                    <Tab
+                  ${/*  <Tab
                         icon={<FontIcon className="material-icons">pie_chart</FontIcon>}
                         label="ANALYSIS"
                         className="customtab">
@@ -50,7 +50,7 @@ export default class extends Component {
                             <OthersChart chartData={this.props.chartData} />
                         </div>
 
-                    </Tab>
+                    </Tab>*/}
 
 
 

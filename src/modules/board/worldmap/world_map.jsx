@@ -17,6 +17,7 @@ class WorldMap extends Component {
         this.forceUpdate();
     }
 
+
     render() {
         return (
             <div id="worldmap" >
@@ -51,9 +52,6 @@ class WorldMap extends Component {
                     "dataProvider": {
                         "map": "worldLow",
                         "images": [...mapData],
-                    },
-                    "export": {
-                        "enabled": true
                     }
                 }} />
         }

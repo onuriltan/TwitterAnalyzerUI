@@ -56,20 +56,6 @@ class SearcButtons extends Component {
 
     start_twitter_stream() {
 
-        /*async function getCsrfToken(url) {
-            const result = await axios.get(url)
-            return result;
-        }
-        var payload_csrf = {
-            data: {
-                csrf: getCsrfToken('/csrf')
-            }
-        }
-
-        this.props.actions.set_csrf_token(payload_csrf);
-        console.log(this.props.state.reducer.csrf);*/
-
-
         this.setState({ start_disabled: true });
         this.setState({ stop_disabled: false });
             var payload = {
@@ -105,7 +91,7 @@ class SearcButtons extends Component {
         }
         stompClient = Stomp.over(socket);
 
-        stompClient.debug = null;
+        //stompClient.debug = null;
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/topic/fetchTwitterStream', function (tokenizedTweet) {
                 let payload_initialload = {

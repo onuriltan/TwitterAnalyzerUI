@@ -19,7 +19,11 @@ class App extends Component {
                     tweetslocation: []
                 }
             },
-            tweetData : [ ], 
+            tweetData : { 
+                data: {
+                    tweets: []
+                }
+            }, 
             chartData: {
                 data: {
                     person: { },
