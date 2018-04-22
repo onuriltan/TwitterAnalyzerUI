@@ -1,11 +1,7 @@
-const express = require('express');
-const path = require('path');
-const app = express();
+const serve = require('serve');
 
-app.use(express.static(path.join(__dirname, '../build')));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
-
-app.listen(5000);
+const server = serve("../build", {
+  port: 5000,
+  ignore: ['node_modules']
+})
