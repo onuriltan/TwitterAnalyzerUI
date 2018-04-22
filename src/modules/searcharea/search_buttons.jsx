@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 
 
 
-class SearcButtons extends Component {
+class SearchButtons extends Component {
 
     constructor(props) {
         super(props);
@@ -260,7 +260,7 @@ class SearcButtons extends Component {
 
 }
 
-SearcButtons.propTypes = {
+SearchButtons.propTypes = {
     actions: PropTypes.object,
     initialState: PropTypes.object
 };
@@ -278,4 +278,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SearcButtons);
+)(SearchButtons);

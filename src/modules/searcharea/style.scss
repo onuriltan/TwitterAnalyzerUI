@@ -1,18 +1,28 @@
-.description {
-    font-size: 350%;
+.searcharea{
     display: flex;
-    font-family: 'Permanent Marker', cursive;
-    justify-content: center;
-}
-.searchfield{
-    display: flex;
-    justify-content: center;
-}
-.searchbuttons {
-    display: flex;
-    justify-content: center;
-    .bttn {
-        margin : 1em 0.5em;
-        justify-content: right;
+    .trendtopics{
+        width: 40%;
+        
     }
+    .middlesection{
+        .description {
+            font-size: 350%;
+            display: flex;
+            font-family: 'Permanent Marker', cursive;
+            justify-content: center;
+        }
+        .searchfield{
+            display: flex;
+            justify-content: center;
+        }
+        .searchbuttons {
+            display: flex;
+            justify-content: center;
+            .bttn {
+                margin : 1em 0.5em;
+                justify-content: right;
+        }
+      }
+    }
+    
 }

@@ -61,8 +61,8 @@ class TweetPanel extends Component {
                     <TableBody>
                          { 
                                 this.props.tweetData.data.tweets.map((tweet) => 
-                                   <TableRow>
-                                      <TableRowColumn>{tweet.username}</TableRowColumn>
+                                   <TableRow key={tweet.username}>
+                                       <TableRowColumn>{tweet.username}</TableRowColumn>
                                        <TableRowColumn>{tweet.tweet}</TableRowColumn>
                                        <TableRowColumn>{tweet.country}</TableRowColumn>
                                     </TableRow>
