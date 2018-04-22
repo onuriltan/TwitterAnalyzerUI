@@ -42,7 +42,7 @@ class SearcButtons extends Component {
 
         var socketConnection = this.props.state.reducer.socketConnection;
         if (socketConnection != null) {
-            socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
+            socketConnection.send("/user/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
             socketConnection.disconnect();
             let payload = {
                 data: {
@@ -93,7 +93,7 @@ class SearcButtons extends Component {
 
         //stompClient.debug = null;
         stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/topic/fetchTwitterStream', function (tokenizedTweet) {
+            stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
                 let payload_initialload = {
                     data: {
                         initialload: that.props.state.reducer.initialload,
@@ -113,6 +113,7 @@ class SearcButtons extends Component {
                         {
                             "username": tweet.username,
                             "tweet": tweet.tweet,
+                            "country": tweet.country,
                         }
                     );
                     that.props.actions.update_tweets_data(payload);

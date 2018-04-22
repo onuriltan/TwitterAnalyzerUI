@@ -5,9 +5,7 @@ import {
     TableHeader,
     TableHeaderColumn,
     TableRow,
-    TablePagination,
-    TableRowColumn,
-    TableFooter
+    TableRowColumn
   } from 'material-ui/Table';
   import Paper from 'material-ui/Paper';
 
@@ -56,6 +54,7 @@ class TweetPanel extends Component {
                        <TableRow>
                           <TableHeaderColumn>Username</TableHeaderColumn>
                            <TableHeaderColumn>Tweet</TableHeaderColumn>
+                           <TableHeaderColumn>Country</TableHeaderColumn>
                        </TableRow>
                     </TableHeader>
            
@@ -65,6 +64,7 @@ class TweetPanel extends Component {
                                    <TableRow>
                                       <TableRowColumn>{tweet.username}</TableRowColumn>
                                        <TableRowColumn>{tweet.tweet}</TableRowColumn>
+                                       <TableRowColumn>{tweet.country}</TableRowColumn>
                                     </TableRow>
                                  )   
                         }

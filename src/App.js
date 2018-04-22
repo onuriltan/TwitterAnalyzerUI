@@ -13,6 +13,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
+    
         this.state = {
             mapData:  {
                 data: {
@@ -35,6 +36,7 @@ class App extends Component {
         }
     }
 
+   
     handleChartData(chartData) {
         this.setState({ chartData : chartData });
     }
