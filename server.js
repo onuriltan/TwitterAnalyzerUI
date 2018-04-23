@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/api/getTrendTopics', function (req, res) {
+app.get('twitteranalyzer/api/getTrendTopics', function (req, res) {
   axios.get('http://localhost:8080/api/getTrendTopics')
     .then(function (response) {
       return res.send(response.data);
