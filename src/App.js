@@ -13,25 +13,25 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-    
+
         this.state = {
             trendTopicData: [],
-            mapData:  {
+            mapData: {
                 data: {
                     tweetslocation: []
                 }
             },
-            tweetData : { 
+            tweetData: {
                 data: {
                     tweets: []
                 }
-            }, 
+            },
             chartData: {
                 data: {
-                    person: { },
-                    location: { },
-                    organization: { },
-                    others: { }
+                    person: {},
+                    location: {},
+                    organization: {},
+                    others: {}
                 }
             }
         }
@@ -39,43 +39,38 @@ class App extends Component {
 
     componentDidMount() {
         this.callApi()
-          .then(res => this.setState({ trendTopicData: res.trendTopics }))
-          .catch(err => console.log(err));
-      }
-    
-      callApi = async () => {
-        let response = null;
-        if (process.env.NODE_ENV === "development") {
-            response =  await fetch('api/getTrendTopics');
-        }
-        if (process.env.NODE_ENV === "production") {
-            response =  await fetch('http://onuriltan.com:8080/api/getTrendTopics');
-        }
-        const body = await response.json();
-    
-        if (response.status !== 200) throw Error(body.message);
-    
-        return body;
-      };
+            .then(res => this.setState({ trendTopicData: res.trendTopics }))
+            .catch(err => console.log(err));
+    }
 
-   
+    callApi = async () => {
+        let response = null;
+        response = await fetch('api/getTrendTopics');
+        const body = await response.json();
+
+        if (response.status !== 200) throw Error(body.message);
+
+        return body;
+    };
+
+
     handleChartData(chartData) {
-        this.setState({ chartData : chartData });
+        this.setState({ chartData: chartData });
     }
 
     handleMapData(mapData) {
-        this.setState({ mapData : mapData });
+        this.setState({ mapData: mapData });
     }
     handleTweetPanelData(tweetData) {
-        this.setState({ tweetData : tweetData });
+        this.setState({ tweetData: tweetData });
     }
 
     render() {
         return (
             <MuiThemeProvider>
                 <div className="main">
-                    <SearchArea trendTopicData= {this.state.trendTopicData} newChartDataListener={this.handleChartData.bind(this)} newMapDataListener={this.handleMapData.bind(this)} newTweetPanelListener={this.handleTweetPanelData.bind(this)}/>
-                    <Board chartData={this.state.chartData} mapData={this.state.mapData} tweetData={this.state.tweetData}/>
+                    <SearchArea trendTopicData={this.state.trendTopicData} newChartDataListener={this.handleChartData.bind(this)} newMapDataListener={this.handleMapData.bind(this)} newTweetPanelListener={this.handleTweetPanelData.bind(this)} />
+                    <Board chartData={this.state.chartData} mapData={this.state.mapData} tweetData={this.state.tweetData} />
                 </div>
             </MuiThemeProvider>
 
