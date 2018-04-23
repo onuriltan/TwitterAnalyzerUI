@@ -11,25 +11,21 @@ class SearchField extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      initialState: this.props.state.reducer,
-    };
     this.change_keyword = this.change_keyword.bind(this);
-
-    this.theCoolTimeout = null;
-
   }
 
   render() {
+   
     return (
       <div className="searchfield">
         <TextField
           hintText="Keyword"
           floatingLabelText="Enter keyword"
-          floatingLabelFocusStyle={{color: 'black'}}
-          underlineFocusStyle={{borderColor: '#ff4081'}}
+          floatingLabelFocusStyle={{ color: 'black' }}
+          underlineFocusStyle={{ borderColor: '#ff4081' }}
           type="keyword"
           onChange={this.change_keyword}
+          value={this.props.state.reducer.keyword}
         />
       </div>
     );
@@ -37,17 +33,15 @@ class SearchField extends Component {
   }
 
   change_keyword(event) {
-    clearTimeout(this.theCoolTimeout);
     var keyword = event.target.value;
-    this.theCoolTimeout = setTimeout(() => {
+    this.setState({ keyword: event.target.value })
       let payload = {
         data: {
           keyword: keyword,
         }
       }
-    this.props.actions.set_keyword_field(payload);
+      this.props.actions.set_keyword_field(payload);
 
-    }, 500);
   }
 }
 

@@ -2,6 +2,7 @@
   "name": "twitteranalyzerui",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "ammap3": "github:amcharts/ammap3",
     "autoprefixer": "7.1.6",
@@ -114,6 +115,5 @@
     "@amcharts/amcharts3-react": "^3.0.4",
     "node-sass": "^4.8.3",
     "sass-loader": "^7.0.1"
-  },
-  "proxy": "http://localhost:8080"
+  }
 }

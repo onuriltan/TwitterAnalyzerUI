@@ -1,52 +1,87 @@
 import React, { Component } from 'react';
-import {List, ListItem, makeSelectable} from 'material-ui/List';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../actions';
+import PropTypes from 'prop-types';
+
+
+import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+
 
 let SelectableList = makeSelectable(List);
 
 class TrendTopics extends Component {
-    render(){
-        return(
-            <div className="trendtopics">
-              <SelectableList defaultValue={1}  style={{maxHeight: '65%', overflow: 'auto',  transform:'scaleX(-1)', 
-                    float       : 'none', 
-                    width       : '20em',
-                    marginLeft  : 'auto',
-                    marginRight : 'auto'}}>
-              <div className="trendtopiclist" style={{transform:'scaleX(-1)'}}>
-                    <Subheader>Trend Topics</Subheader>
-                    <ListItem
-                        value={1}
-                        primaryText="Brendan Lim"
-                        
-                    />
-                    <ListItem
-                        value={2}
-                        primaryText="Kerem Suer"
-                    />
-                    <ListItem
-                        value={3}
-                        primaryText="Eric Hoffman"
-                    />
-                    <ListItem
-                        value={4}
-                        primaryText="Raquel Parrado"
-                    />
-                    <ListItem
-                        value={5}
-                        primaryText="Raquel Parrado"
-                    />
-                    <ListItem
-                        value={6}
-                        primaryText="Raquel Parrado"
-                    />
-                </div>
 
-                    </SelectableList>
+    handleClick(trendTopic) {
+        let payload = {
+            data: {
+                keyword: trendTopic,
+            }
+        }
 
-            </div>
+        this.props.actions.set_keyword_field(payload);
 
-        );
     }
+
+
+    render() {
+        if(this.props.trendTopicData.length !== 0){
+            return (
+                <div className="trendtopics">
+                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>Trend Topics</Subheader>
+                    <SelectableList id="trendtopicid"
+                        style={{
+                            maxHeight: '50%', overflow: 'auto', transform: 'scaleX(-1)',
+                            float: 'none',
+                            width: '20em',
+                            marginLeft: 'auto',
+                            marginRight: 'auto'
+    
+                        }}>
+                        <div className="trendtopiclistitems" style={{ transform: 'scaleX(-1)' }}>
+                            {
+                                this.props.trendTopicData.map((trendTopic) =>
+                                    <ListItem
+                                        key={trendTopic}
+                                        value={trendTopic}
+                                        primaryText={trendTopic}
+                                        onClick={() => this.handleClick(trendTopic)}
+                                    />
+                                )
+                            }
+                        </div>
+    
+                    </SelectableList>
+    
+                </div>
+    
+            );
+        }
+        return (
+            <div className="trendtopics" /> 
+        );
+       
+    }
+
 }
-export default TrendTopics;
+TrendTopics.propTypes = {
+    actions: PropTypes.object,
+    initialState: PropTypes.object
+};
+
+function mapStateToProps(state) {
+    return { state: state };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TrendTopics);

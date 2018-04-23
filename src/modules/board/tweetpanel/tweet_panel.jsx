@@ -24,7 +24,6 @@ import {
   };*/
 
 
-
 class TweetPanel extends Component {
 
     constructor(props) {
@@ -61,13 +60,14 @@ class TweetPanel extends Component {
                     <TableBody>
                          { 
                                 this.props.tweetData.data.tweets.map((tweet) => 
-                                   <TableRow key={tweet.username}>
+                                   <TableRow key={tweet.username+","+this.props.tweetData.data.tweets.length}>
                                        <TableRowColumn>{tweet.username}</TableRowColumn>
                                        <TableRowColumn>{tweet.tweet}</TableRowColumn>
                                        <TableRowColumn>{tweet.country}</TableRowColumn>
                                     </TableRow>
                                  )   
                         }
+                        
                      </TableBody>
                   </Table>   
              </Paper>

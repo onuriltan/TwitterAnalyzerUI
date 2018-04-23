@@ -12,7 +12,7 @@ export default class extends Component {
     render() {
         return (
             <div className = "searcharea">
-                <TrendTopics />
+                <TrendTopics trendTopicData={this.props.trendTopicData} />
                 <div className ="middlesection">
                     <Description />
                     <SearchField />
