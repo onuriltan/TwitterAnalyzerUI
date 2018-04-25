@@ -13,14 +13,22 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/api/getTrendTopics', function (req, res) {
-  axios.get('http://localhost:8080/api/getTrendTopics')
+app.get('/api/getTrendTopics/inArea', function (req, res) {
+  axios.get('http://localhost:8080/api/getTrendTopics/inArea')
     .then(function (response) {
-      console.log(response.data)
       return res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log(error.code);
+    });
+});
+app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
+  axios.get('http://localhost:8080/api/getTrendTopics/inWorldWide')
+    .then(function (response) {
+      return res.send(response.data);
+    })
+    .catch(function (error) {
+      console.log(error.code);
     });
 });
 

@@ -30,7 +30,7 @@ class TrendTopics extends Component {
         if(this.props.trendTopicData.length !== 0){
             return (
                 <div className="trendtopics">
-                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>Trend Topics</Subheader>
+                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
                     <SelectableList id="trendtopicid"
                         style={{
                             maxHeight: '50%', overflow: 'auto', transform: 'scaleX(-1)',

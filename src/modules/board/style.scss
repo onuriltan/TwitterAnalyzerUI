@@ -18,19 +18,21 @@
     }
   
     .tweetpanel {
-        .tweettable {
-            .head{  
-                font-size: 150%;
-                font-family: Roboto, sans-serif;
-            }
-            .row {
-                border-top: 1px solid rgba(0,0,0,.06);
-                border-left: 0 none;
-                border-right: 0 none;
-                display: table-cell;
-                vertical-align: top;
-            }
+        margin: 2em 1em 2em 1em;
+        .tweetpanel_paper {
+            max-height: 50em;
+            overflow: auto;
         }
+        #tweetpanel_paper::-webkit-scrollbar {
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            width: 8px;
+            background-color: white;
+        }
+        #tweetpanel_paper::-webkit-scrollbar-thumb {
+            background-color: black;
+        }
+        
     }
     .chart {
         height: 25em;
