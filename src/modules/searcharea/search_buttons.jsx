@@ -5,8 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-//import axios from 'axios';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
@@ -24,8 +22,6 @@ class SearchButtons extends Component {
         };
 
     }
-
-
 
     render() {
         return (
@@ -58,25 +54,25 @@ class SearchButtons extends Component {
 
         this.setState({ start_disabled: true });
         this.setState({ stop_disabled: false });
-            var payload = {
-                data: {
-                    csrf: null,
-                    socketConnection: null,
-                    tweets: [],
-                    location: {},
-                    organization: {},
-                    person: {},
-                    tweetslocation: [],
-                    others: {}
-                }
+        var payload = {
+            data: {
+                csrf: null,
+                socketConnection: null,
+                tweets: [],
+                location: {},
+                organization: {},
+                person: {},
+                tweetslocation: [],
+                others: {}
             }
+        }
 
-            this.props.newChartDataListener(payload);
-            this.props.newMapDataListener(payload);
-            this.props.actions.reset_data(payload);
-            this.props.newTweetPanelListener(payload);
+        this.props.newChartDataListener(payload);
+        this.props.newMapDataListener(payload);
+        this.props.actions.reset_data(payload);
+        this.props.newTweetPanelListener(payload);
 
-        
+
 
 
         let stompClient = null;
@@ -113,6 +109,7 @@ class SearchButtons extends Component {
                             "username": tweet.username,
                             "tweet": tweet.tweet,
                             "country": tweet.country,
+                            "createDate": tweet.createDate,
                         }
                     );
                     that.props.actions.update_tweets_data(payload);

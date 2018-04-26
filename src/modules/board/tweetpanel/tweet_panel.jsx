@@ -23,20 +23,12 @@ class TweetPanel extends Component {
         };
     }
 
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    };
-
-    handleChangeRowsPerPage = event => {
-        this.setState({ rowsPerPage: event.target.value });
-    };
-
     render() {
 
         return (
             <div className="tweetpanel" >
                 <Paper id="tweetpanel_paper" className="tweetpanel_paper">
-                    <Table >
+                    <Table>
                         <TableHeader
                             displaySelectAll={this.state.showCheckboxes}
                             adjustForCheckbox={this.state.showCheckboxes}
@@ -45,19 +37,29 @@ class TweetPanel extends Component {
                                 <TableHeaderColumn>Username</TableHeaderColumn>
                                 <TableHeaderColumn>Tweet</TableHeaderColumn>
                                 <TableHeaderColumn>Country</TableHeaderColumn>
+                                <TableHeaderColumn>CreateDate</TableHeaderColumn>
+
                             </TableRow>
                         </TableHeader>
 
-                        <TableBody displayRowCheckbox={this.state.showCheckBoxes}>
+                        <TableBody displayRowCheckbox={this.state.showCheckboxes}>
                             {
                                 this.props.tweetData.data.tweets.map((tweet) =>
-                                    <TableRow key={tweet.username + "," + this.props.tweetData.data.tweets.length} >
+                                    <TableRow
+                                        key={tweet.username + "," + this.props.tweetData.data.tweets.length}
+                                       >
                                         <TableRowColumn>{tweet.username}</TableRowColumn>
-                                        <TableRowColumn style={{
-                                            whiteSpace: "normal",
-                                            wordWrap: "break-word"
-                                        }}>{tweet.tweet}</TableRowColumn>ß
+                                        <TableRowColumn
+                                            style={{
+                                                whiteSpace: "normal",
+                                                wordWrap: "break-word"
+                                            }}
+                                        >
+                                            {tweet.tweet}
+                                        </TableRowColumn>
                                         <TableRowColumn>{tweet.country}</TableRowColumn>
+                                        <TableRowColumn>{tweet.createDate}</TableRowColumn>
+
                                     </TableRow>
                                 )
                             }
