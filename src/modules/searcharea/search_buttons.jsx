@@ -104,7 +104,7 @@ class SearchButtons extends Component {
                             tweets: that.props.state.reducer.tweets,
                         }
                     }
-                    payload.data.tweets.push(
+                    payload.data.tweets.unshift(
                         {
                             "username": tweet.username,
                             "tweet": tweet.tweet,
