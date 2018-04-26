@@ -20,7 +20,7 @@ class WorldMap extends Component {
 
     render() {
         return (
-            <div id="worldmap" >
+            <div className="worldmap" >
                 {createChart(this.state.mapData)}
             </div>
 

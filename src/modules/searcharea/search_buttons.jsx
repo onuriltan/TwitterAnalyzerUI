@@ -97,7 +97,6 @@ class SearchButtons extends Component {
                 that.props.actions.update_inital_load(payload_initialload);
                 let tweet = JSON.parse(tokenizedTweet.body);
 
-
                 if (tweet.forStreamPanel === true) {
                     let payload = {
                         data: {
@@ -106,9 +105,10 @@ class SearchButtons extends Component {
                     }
                     payload.data.tweets.unshift(
                         {
+                            "link": tweet.link,
                             "username": tweet.username,
                             "tweet": tweet.tweet,
-                            "country": tweet.country,
+                            "location": tweet.location,
                             "createDate": tweet.createDate,
                         }
                     );

@@ -36,7 +36,7 @@ class TweetPanel extends Component {
                             <TableRow>
                                 <TableHeaderColumn>Username</TableHeaderColumn>
                                 <TableHeaderColumn>Tweet</TableHeaderColumn>
-                                <TableHeaderColumn>Country</TableHeaderColumn>
+                                <TableHeaderColumn>Location</TableHeaderColumn>
                                 <TableHeaderColumn>CreateDate</TableHeaderColumn>
 
                             </TableRow>
@@ -48,7 +48,7 @@ class TweetPanel extends Component {
                                     <TableRow
                                         key={tweet.username + "," + this.props.tweetData.data.tweets.length}
                                        >
-                                        <TableRowColumn>{tweet.username}</TableRowColumn>
+                                       <TableRowColumn > <a target="_blank" href={tweet.link}>{tweet.username}</a></TableRowColumn>
                                         <TableRowColumn
                                             style={{
                                                 whiteSpace: "normal",
@@ -57,7 +57,7 @@ class TweetPanel extends Component {
                                         >
                                             {tweet.tweet}
                                         </TableRowColumn>
-                                        <TableRowColumn>{tweet.country}</TableRowColumn>
+                                        <TableRowColumn>{tweet.location}</TableRowColumn>
                                         <TableRowColumn>{tweet.createDate}</TableRowColumn>
 
                                     </TableRow>
