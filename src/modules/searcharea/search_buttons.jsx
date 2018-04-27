@@ -112,8 +112,17 @@ class SearchButtons extends Component {
                             "createDate": tweet.createDate,
                         }
                     );
-                    that.props.actions.update_tweets_data(payload);
-                    that.props.newTweetPanelListener(payload);
+
+                    var temp = false;
+                    that.props.state.reducer.tweets.forEach((theTweet) => {
+                        if (theTweet.link === tweet.link) {
+                            temp = true;
+                        }
+                    });
+                    if (temp === false) {
+                        that.props.actions.update_tweets_data(payload);
+                        that.props.newTweetPanelListener(payload);
+                    }
                 }
                 if (tweet.latitude !== null && tweet.longitude !== null) {
                     let payload = {
