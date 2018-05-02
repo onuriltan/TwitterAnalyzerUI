@@ -13,8 +13,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/api/getTrendTopics/inArea', function (req, res) {
-  axios.get('http://localhost:8080/api/getTrendTopics/inArea')
+app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
+  axios.get('http://localhost:8080/api/getTrendTopics/byGeolocation?lat='+req.query.lat+'&lng='+req.query.lng)
     .then(function (response) {
       return res.send(response.data);
     })
@@ -22,6 +22,8 @@ app.get('/api/getTrendTopics/inArea', function (req, res) {
       console.log(error.code);
     });
 });
+
+
 app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
   axios.get('http://localhost:8080/api/getTrendTopics/inWorldWide')
     .then(function (response) {

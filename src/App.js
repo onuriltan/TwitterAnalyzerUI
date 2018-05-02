@@ -16,7 +16,8 @@ class App extends Component {
         this.state = {
             trendTopicDataInArea: [],
             trendTopicDataInWorldWide: [],
-
+            address: '',
+            woeid: '',
             mapData: {
                 data: {
                     tweetslocation: []
@@ -39,20 +40,26 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getTrendTopicsInArea()
-            .then(res => this.setState({ trendTopicDataInArea: res.trendTopics }))
-            .catch(err => console.log(err));
 
         this.getTrendTopicsInWorldWide()
             .then(res => this.setState({ trendTopicDataInWorldWide: res.trendTopics }))
             .catch(err => console.log(err));
+
+        if ("geolocation" in navigator) {
+            var that = this;
+            navigator.geolocation.getCurrentPosition(function (position) {
+                that.getTrendTopicsInArea(position.coords.latitude, position.coords.longitude)
+                    .then(res => that.setState({ trendTopicDataInArea: res.trendTopics }))
+                    .catch(err => console.log(err));
+             });
+        }
+        
     }
 
 
-
-    getTrendTopicsInArea = async () => {
+    getTrendTopicsInArea = async (lat,lng) => {
         let response = null;
-        response = await fetch('api/getTrendTopics/inArea');
+        response = await fetch('api/getTrendTopics/byGeolocation?lat='+lat+'&lng='+lng);
         const body = await response.json();
 
         if (response.status !== 200) throw Error(body.message);
@@ -86,6 +93,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <MuiThemeProvider>
                 <div className="main">
