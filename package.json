@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
-  "homepage": "https://onuriltan.com/twitteranalyzer",
+  "homepage": "http://onuriltan.com/twitteranalyzer",
   "dependencies": {
     "ammap3": "github:amcharts/ammap3",
     "autoprefixer": "7.1.6",
