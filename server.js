@@ -5,15 +5,15 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/api/ping', function (req, res) {
+app.get('/twitteranalyzer/api/ping', function (req, res) {
   return res.send('pong');
 });
 
-app.get('/', function (req, res) {
+app.get('/twitteranalyzer', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
+app.get('/twitteranalyzer/api/getTrendTopics/byGeolocation', function (req, res) {
   axios.get('http://localhost:8080/api/getTrendTopics/byGeolocation?lat='+req.query.lat+'&lng='+req.query.lng)
     .then(function (response) {
       return res.send(response.data);
@@ -24,7 +24,7 @@ app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
 });
 
 
-app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
+app.get('/twitteranalyzer/api/getTrendTopics/inWorldWide', function (req, res) {
   axios.get('http://localhost:8080/api/getTrendTopics/inWorldWide')
     .then(function (response) {
       return res.send(response.data);
