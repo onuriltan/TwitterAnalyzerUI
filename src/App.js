@@ -59,7 +59,7 @@ class App extends Component {
 
     getTrendTopicsInArea = async (lat,lng) => {
         let response = null;
-        response = await fetch('api/getTrendTopics/byGeolocation?lat='+lat+'&lng='+lng);
+        response = await fetch('twitteranalyzer/api/getTrendTopics/byGeolocation?lat='+lat+'&lng='+lng);
         const body = await response.json();
 
         if (response.status !== 200) throw Error(body.message);
@@ -69,7 +69,7 @@ class App extends Component {
 
     getTrendTopicsInWorldWide = async () => {
         let response = null;
-        response = await fetch('api/getTrendTopics/inWorldWide');
+        response = await fetch('twitteranalyzer/api/getTrendTopics/inWorldWide');
         const body = await response.json();
 
         if (response.status !== 200) throw Error(body.message);
