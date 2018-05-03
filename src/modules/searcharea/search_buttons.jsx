@@ -82,7 +82,7 @@ class SearchButtons extends Component {
             socket = new SockJS('http://localhost:8080/twitterStream');
         }
         if (process.env.NODE_ENV === "production") {
-            socket = new SockJS('https://18.184.48.57/twitteranalyzercore/twitterStream'); 
+            socket = new SockJS('https://onuriltan.com/twitteranalyzercore/twitterStream'); 
         }
         stompClient = Stomp.over(socket);
 
