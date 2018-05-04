@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import PropTypes from 'prop-types';
 
+import CircularProgress from 'material-ui/CircularProgress';
 
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -27,18 +28,18 @@ class TrendTopics extends Component {
 
 
     render() {
-        if(this.props.trendTopicData.length !== 0){
+        if (this.props.trendTopicData.length !== 0) {
             return (
                 <div className="trendtopics">
                     <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
                     <SelectableList id="trendtopicid"
                         style={{
-                            maxHeight: '50%', overflow: 'auto', transform: 'scaleX(-1)',
+                            maxHeight: '8em', overflow: 'auto', transform: 'scaleX(-1)',
                             float: 'none',
                             width: '20em',
                             marginLeft: 'auto',
                             marginRight: 'auto'
-    
+
                         }}>
                         <div className="trendtopiclistitems" style={{ transform: 'scaleX(-1)' }}>
                             {
@@ -52,17 +53,26 @@ class TrendTopics extends Component {
                                 )
                             }
                         </div>
-    
                     </SelectableList>
-    
                 </div>
-    
+
             );
         }
         return (
-            <div className="trendtopics" /> 
+
+            <div className="trendtopics" >
+                <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                <CircularProgress id="circularProgrss" size={60} thickness={7} color='black' 
+                    style={{
+                        display: 'flex',
+                        margin: 'auto',
+                        paddingTop : '5%',
+                        justifyContent: 'center'
+
+                        }} />
+            </div>
         );
-       
+
     }
 
 }

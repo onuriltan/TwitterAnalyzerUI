@@ -72,7 +72,7 @@ class SearchButtons extends Component {
 
         var socketConnection = this.props.state.reducer.socketConnection;
         if (socketConnection != null) {
-            socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': null }));
+            socketConnection.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'stop', 'message': 'stop' }));
             socketConnection.disconnect();
             let payload = {
                 data: {

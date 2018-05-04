@@ -19,7 +19,7 @@ app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
       return res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error.code);
+      console.log(error);
     });
 });
 
@@ -30,7 +30,7 @@ app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
       return res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error.code);
+      console.log(error);
     });
 });
 
