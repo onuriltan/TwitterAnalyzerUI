@@ -19,7 +19,7 @@ app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
       return res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log(error.status);
     });
 });
 
