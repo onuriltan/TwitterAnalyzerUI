@@ -23,17 +23,19 @@
             text-align: center;
         }
         .searchfield{
-            display: flex;
+            display: block;
             justify-content: center;
-        }
-        .searchbuttons {
-            display: flex;
-            justify-content: center;
-            .bttn {
-                margin : 1em 0.5em;
-                justify-content: right;
+            text-align: center;
+            .searchbuttons {
+                display: flex;
+                justify-content: center;
+                .bttn {
+                    margin : 1em 0.5em;
+                    justify-content: right;
+            }
         }
       }
+
     }
     
 }

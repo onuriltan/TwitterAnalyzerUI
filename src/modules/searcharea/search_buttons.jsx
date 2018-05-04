@@ -10,6 +10,9 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import PropTypes from 'prop-types';
 
+import TextField from 'material-ui/TextField';
+
+import Alertify from 'alertify.js';
 
 
 class SearchButtons extends Component {
@@ -17,19 +20,50 @@ class SearchButtons extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            keyword: '',
+            errorText: '',
             start_disabled: false,
-            stop_disabled: true
+            stop_disabled: true,
         };
+        this.change_keyword = this.change_keyword.bind(this);
 
     }
 
+
+
     render() {
         return (
-            <div className="searchbuttons">
-                <RaisedButton disabled={this.state.start_disabled} className="bttn" label="Start" onClick={() => this.start_twitter_stream()} />
-                <RaisedButton disabled={this.state.stop_disabled} className="bttn" label="Stop" onClick={() => this.stop_twitter_stream()} />
+            <div className="searchfield">
+                <TextField
+                    hintText="Keyword"
+                    floatingLabelText="Enter keyword"
+                    floatingLabelFocusStyle={{ color: 'black' }}
+                    underlineFocusStyle={{ borderColor: '#ff4081' }}
+                    type="keyword"
+                    errorText={this.state.errorText}
+                    onChange={this.change_keyword}
+                    value={this.props.state.reducer.keyword}
+                />
+                <div className="searchbuttons">
+                    <RaisedButton disabled={this.state.start_disabled} className="bttn" label="Start" onClick={() => this.start_twitter_stream()} />
+                    <RaisedButton disabled={this.state.stop_disabled} className="bttn" label="Stop" onClick={() => this.stop_twitter_stream()} />
+                </div>
             </div>
+
         );
+    }
+
+
+    change_keyword(event) {
+        var keyword = event.target.value;
+        this.setState({ keyword: event.target.value })
+        let payload = {
+            data: {
+                keyword: keyword,
+            }
+        }
+        this.props.actions.set_keyword_field(payload);
+
     }
 
     stop_twitter_stream() {
@@ -51,217 +85,234 @@ class SearchButtons extends Component {
     }
 
     start_twitter_stream() {
+        if (this.props.state.reducer.keyword.length > 3 && this.props.state.reducer.keyword !== "") {
+            this.setState({ errorText: "" });
 
-        this.setState({ start_disabled: true });
-        this.setState({ stop_disabled: false });
-        var payload = {
-            data: {
-                csrf: null,
-                socketConnection: null,
-                tweets: [],
-                location: {},
-                organization: {},
-                person: {},
-                tweetslocation: [],
-                others: {}
+            this.setState({ start_disabled: true });
+            this.setState({ stop_disabled: false });
+            var payload = {
+                data: {
+                    csrf: null,
+                    socketConnection: null,
+                    tweets: [],
+                    location: {},
+                    organization: {},
+                    person: {},
+                    tweetslocation: [],
+                    others: {}
+                }
             }
-        }
 
-        this.props.newChartDataListener(payload);
-        this.props.newMapDataListener(payload);
-        this.props.actions.reset_data(payload);
-        this.props.newTweetPanelListener(payload);
-
+            this.props.newChartDataListener(payload);
+            this.props.newMapDataListener(payload);
+            this.props.actions.reset_data(payload);
+            this.props.newTweetPanelListener(payload);
 
 
 
-        let stompClient = null;
-        var that = this;
-        let socket;
-        if (process.env.NODE_ENV === "development") {
-            socket = new SockJS('http://localhost:8080/twitterStream');
-        }
-        if (process.env.NODE_ENV === "production") {
-            socket = new SockJS('https://onuriltan.com/twitteranalyzercore/twitterStream'); 
-        }
-        stompClient = Stomp.over(socket);
 
-        stompClient.debug = null;
-        stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
-                let payload_initialload = {
+            let stompClient = null;
+            var that = this;
+            let socket;
+            if (process.env.NODE_ENV === "development") {
+                socket = new SockJS('http://localhost:8080/twitterStream');
+            }
+            if (process.env.NODE_ENV === "production") {
+                socket = new SockJS('https://onuriltan.com/twitteranalyzercore/twitterStream');
+            }
+            stompClient = Stomp.over(socket);
+
+            stompClient.debug = null;
+            stompClient.connect({}, function (frame) {
+                stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
+                    let payload_initialload = {
+                        data: {
+                            initialload: that.props.state.reducer.initialload,
+                        }
+                    }
+                    that.props.actions.update_inital_load(payload_initialload);
+                    let tweet = JSON.parse(tokenizedTweet.body);
+
+                    if (tweet.exception !== null) {
+                        if (tweet.exception === "420") {
+                            that.stop_twitter_stream();
+                            Alertify.alert('Twitter API rate limit exceeded by other users.');
+                        }
+                    }
+
+                    if (tweet.forStreamPanel === true) {
+                        let payload = {
+                            data: {
+                                tweets: that.props.state.reducer.tweets,
+                            }
+                        }
+                        payload.data.tweets.unshift(
+                            {
+                                "link": tweet.link,
+                                "username": tweet.username,
+                                "tweet": tweet.tweet,
+                                "location": tweet.location,
+                                "createDate": tweet.createDate,
+                            }
+                        );
+
+                        var temp = false;
+                        that.props.state.reducer.tweets.forEach((theTweet) => {
+                            if (theTweet.link === tweet.link) {
+                                temp = true;
+                            }
+                        });
+                        if (temp === false) {
+                            that.props.actions.update_tweets_data(payload);
+                            that.props.newTweetPanelListener(payload);
+                        }
+                    }
+                    if (tweet.latitude !== null && tweet.longitude !== null) {
+                        let payload = {
+                            data: {
+                                tweetslocation: that.props.state.reducer.tweetslocation,
+                            }
+                        }
+                        payload.data.tweetslocation.push(
+                            {
+                                "svgPath": that.props.state.reducer.targetSVG,
+                                "zoomLevel": 5,
+                                "scale": 0.5,
+                                "title": tweet.tweet,
+                                "latitude": tweet.latitude,
+                                "longitude": tweet.longitude
+                            }
+                        );
+                        that.props.actions.update_tweetslocation_data(payload);
+                        that.props.newMapDataListener(payload);
+
+                    }
+                    if (tweet.namedEntity === 'PERSON') {
+                        var payload_person = {
+                            data: {
+                                person: that.props.state.reducer.person,
+                                location: that.props.state.reducer.location,
+                                organization: that.props.state.reducer.organization,
+                                others: that.props.state.reducer.others
+                            }
+                        }
+                        let personMap = that.props.state.reducer.person;
+                        if (tweet.word in personMap) {
+                            Object.entries(personMap).forEach(([key, value]) => {
+                                if (key === tweet.word) {
+                                    payload_person.data.person[tweet.word] = value + 1;
+                                }
+                            }
+                            );
+                        }
+                        else {
+                            payload_person.data.person[tweet.word] = 1;
+                        }
+
+                        that.props.actions.update_person_data(payload_person);
+                        that.props.newChartDataListener(payload_person);
+
+                    }
+
+                    if (tweet.namedEntity === 'LOCATION' || tweet.namedEntity === 'COUNTRY' || tweet.namedEntity === 'STATE_OR_PROVINCE') {
+                        var payload_location = {
+                            data: {
+                                person: that.props.state.reducer.person,
+                                location: that.props.state.reducer.location,
+                                organization: that.props.state.reducer.organization,
+                                others: that.props.state.reducer.others
+                            }
+                        }
+                        let locationMap = that.props.state.reducer.location;
+                        if (tweet.word in locationMap) {
+                            Object.entries(locationMap).forEach(([key, value]) => {
+                                if (key === tweet.word) {
+                                    payload_location.data.location[tweet.word] = value + 1;
+
+                                }
+                            }
+                            );
+                        }
+                        else {
+                            payload_location.data.location[tweet.word] = 1;
+                        }
+                        that.props.actions.update_location_data(payload_location);
+                        that.props.newChartDataListener(payload_location);
+                    }
+
+                    if (tweet.namedEntity === 'ORGANIZATION') {
+                        var payload_organization = {
+                            data: {
+                                person: that.props.state.reducer.person,
+                                location: that.props.state.reducer.location,
+                                organization: that.props.state.reducer.organization,
+                                others: that.props.state.reducer.others
+                            }
+                        }
+                        let organizationMap = that.props.state.reducer.organization;
+                        if (tweet.word in organizationMap) {
+                            Object.entries(organizationMap).forEach(([key, value]) => {
+                                if (key === tweet.word) {
+                                    payload_organization.data.organization[tweet.word] = value + 1;
+                                }
+                            }
+                            );
+                        }
+                        else {
+                            payload_organization.data.organization[tweet.word] = 1;
+                        }
+                        that.props.actions.update_organization_data(payload_organization);
+                        that.props.newChartDataListener(payload_organization);
+                    }
+
+                    else {
+                        var payload_others = {
+                            data: {
+                                person: that.props.state.reducer.person,
+                                location: that.props.state.reducer.location,
+                                organization: that.props.state.reducer.organization,
+                                others: that.props.state.reducer.others
+                            }
+                        }
+                        let othersMap = that.props.state.reducer.others;
+                        if (tweet.word in othersMap) {
+                            Object.entries(othersMap).forEach(([key, value]) => {
+                                if (key === tweet.word) {
+                                    payload_others.data.others[tweet.word] = value + 1;
+                                }
+                            }
+                            );
+                        }
+                        else {
+                            payload_others.data.others[tweet.word] = 1;
+                        }
+                        that.props.actions.update_others_data(payload_others);
+                        that.props.newChartDataListener(payload_others);
+                    }
+
+
+
+
+                });
+                stompClient.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'start', 'message': that.props.state.reducer.keyword }));
+                let payload = {
                     data: {
-                        initialload: that.props.state.reducer.initialload,
+                        socketConnection: stompClient
                     }
                 }
-                that.props.actions.update_inital_load(payload_initialload);
-                let tweet = JSON.parse(tokenizedTweet.body);
-
-                if (tweet.forStreamPanel === true) {
-                    let payload = {
-                        data: {
-                            tweets: that.props.state.reducer.tweets,
-                        }
-                    }
-                    payload.data.tweets.unshift(
-                        {
-                            "link": tweet.link,
-                            "username": tweet.username,
-                            "tweet": tweet.tweet,
-                            "location": tweet.location,
-                            "createDate": tweet.createDate,
-                        }
-                    );
-
-                    var temp = false;
-                    that.props.state.reducer.tweets.forEach((theTweet) => {
-                        if (theTweet.link === tweet.link) {
-                            temp = true;
-                        }
-                    });
-                    if (temp === false) {
-                        that.props.actions.update_tweets_data(payload);
-                        that.props.newTweetPanelListener(payload);
-                    }
-                }
-                if (tweet.latitude !== null && tweet.longitude !== null) {
-                    let payload = {
-                        data: {
-                            tweetslocation: that.props.state.reducer.tweetslocation,
-                        }
-                    }
-                    payload.data.tweetslocation.push(
-                        {
-                            "svgPath": that.props.state.reducer.targetSVG,
-                            "zoomLevel": 5,
-                            "scale": 0.5,
-                            "title": tweet.tweet,
-                            "latitude": tweet.latitude,
-                            "longitude": tweet.longitude
-                        }
-                    );
-                    that.props.actions.update_tweetslocation_data(payload);
-                    that.props.newMapDataListener(payload);
-
-                }
-                if (tweet.namedEntity === 'PERSON') {
-                    var payload_person = {
-                        data: {
-                            person: that.props.state.reducer.person,
-                            location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization,
-                            others: that.props.state.reducer.others
-                        }
-                    }
-                    let personMap = that.props.state.reducer.person;
-                    if (tweet.word in personMap) {
-                        Object.entries(personMap).forEach(([key, value]) => {
-                            if (key === tweet.word) {
-                                payload_person.data.person[tweet.word] = value + 1;
-                            }
-                        }
-                        );
-                    }
-                    else {
-                        payload_person.data.person[tweet.word] = 1;
-                    }
-
-                    that.props.actions.update_person_data(payload_person);
-                    that.props.newChartDataListener(payload_person);
-
-                }
-
-                if (tweet.namedEntity === 'LOCATION' || tweet.namedEntity === 'COUNTRY' || tweet.namedEntity === 'STATE_OR_PROVINCE') {
-                    var payload_location = {
-                        data: {
-                            person: that.props.state.reducer.person,
-                            location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization,
-                            others: that.props.state.reducer.others
-                        }
-                    }
-                    let locationMap = that.props.state.reducer.location;
-                    if (tweet.word in locationMap) {
-                        Object.entries(locationMap).forEach(([key, value]) => {
-                            if (key === tweet.word) {
-                                payload_location.data.location[tweet.word] = value + 1;
-
-                            }
-                        }
-                        );
-                    }
-                    else {
-                        payload_location.data.location[tweet.word] = 1;
-                    }
-                    that.props.actions.update_location_data(payload_location);
-                    that.props.newChartDataListener(payload_location);
-                }
-
-                if (tweet.namedEntity === 'ORGANIZATION') {
-                    var payload_organization = {
-                        data: {
-                            person: that.props.state.reducer.person,
-                            location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization,
-                            others: that.props.state.reducer.others
-                        }
-                    }
-                    let organizationMap = that.props.state.reducer.organization;
-                    if (tweet.word in organizationMap) {
-                        Object.entries(organizationMap).forEach(([key, value]) => {
-                            if (key === tweet.word) {
-                                payload_organization.data.organization[tweet.word] = value + 1;
-                            }
-                        }
-                        );
-                    }
-                    else {
-                        payload_organization.data.organization[tweet.word] = 1;
-                    }
-                    that.props.actions.update_organization_data(payload_organization);
-                    that.props.newChartDataListener(payload_organization);
-                }
-
-                else {
-                    var payload_others = {
-                        data: {
-                            person: that.props.state.reducer.person,
-                            location: that.props.state.reducer.location,
-                            organization: that.props.state.reducer.organization,
-                            others: that.props.state.reducer.others
-                        }
-                    }
-                    let othersMap = that.props.state.reducer.others;
-                    if (tweet.word in othersMap) {
-                        Object.entries(othersMap).forEach(([key, value]) => {
-                            if (key === tweet.word) {
-                                payload_others.data.others[tweet.word] = value + 1;
-                            }
-                        }
-                        );
-                    }
-                    else {
-                        payload_others.data.others[tweet.word] = 1;
-                    }
-                    that.props.actions.update_others_data(payload_others);
-                    that.props.newChartDataListener(payload_others);
-                }
-
-
-
+                that.props.actions.start_twitter_stream(payload);
 
             });
-            stompClient.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'start', 'message': that.props.state.reducer.keyword }));
-            let payload = {
-                data: {
-                    socketConnection: stompClient
-                }
-            }
-            that.props.actions.start_twitter_stream(payload);
 
-        });
-
+        }
+        if (this.props.state.reducer.keyword.length < 4) {
+            this.setState({ errorText: "Please enter at least four characters" });
+        }
+        if (this.props.state.reducer.keyword === "") {
+            this.setState({ errorText: "Please enter a keyword" });
+        }
     }
+
 
 }
 

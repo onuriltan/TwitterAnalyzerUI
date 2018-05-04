@@ -12,6 +12,9 @@ class SearchField extends Component {
   constructor(props) {
     super(props);
     this.change_keyword = this.change_keyword.bind(this);
+    this.state = {
+      errorText: ''
+  };
   }
 
   render() {
@@ -24,6 +27,7 @@ class SearchField extends Component {
           floatingLabelFocusStyle={{ color: 'black' }}
           underlineFocusStyle={{ borderColor: '#ff4081' }}
           type="keyword"
+          errorText= ""
           onChange={this.change_keyword}
           value={this.props.state.reducer.keyword}
         />
