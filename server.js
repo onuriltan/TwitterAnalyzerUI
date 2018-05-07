@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
+const timeout = require('connect-timeout');
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -19,7 +21,18 @@ app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
       return res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error.status);
+      return res.send(error.response.data);
+    });
+});
+
+
+app.get('/api/getTrendTopics/byAddress', function (req, res) {
+  axios.get('http://localhost:8080/api/getTrendTopics/byAddress?address='+req.query.address)
+    .then(function (response) {
+      return res.send(response.data);
+    })
+    .catch(function (error) {
+      return res.send(error.response.data);
     });
 });
 
@@ -30,7 +43,7 @@ app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
       return res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      return res.send(error.response.data);
     });
 });
 

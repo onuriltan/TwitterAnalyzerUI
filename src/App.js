@@ -8,6 +8,8 @@ import SearchArea from './modules/searcharea';
 import Board from './modules/board';
 
 
+
+
 class App extends Component {
 
     constructor(props) {
@@ -41,31 +43,35 @@ class App extends Component {
 
     componentDidMount() {
 
-        this.getTrendTopicsInWorldWide()
-            .then(res => this.setState({ trendTopicDataInWorldWide: res.trendTopics }))
-            .catch(err => console.log(err));
+        this.getTrendTopicsInWorldWide();
 
         if ("geolocation" in navigator) {
             var that = this;
             navigator.geolocation.getCurrentPosition(function (position) {
                 that.getTrendTopicsInArea(position.coords.latitude, position.coords.longitude)
-                    .then(res => that.setState({ trendTopicDataInArea: res.trendTopics }))
-                    .catch(err => console.log(err));
-             });
+
+            });
         }
-      
-        
+
     }
 
-
-    getTrendTopicsInArea = async (lat,lng) => {
+    getTrendTopicsInArea = async (lat, lng) => {
         let response = null;
-        response = await fetch('api/getTrendTopics/byGeolocation?lat='+lat+'&lng='+lng);
+        response = await fetch('api/getTrendTopics/byGeolocation?lat=' + lat + '&lng=' + lng);
         const body = await response.json();
 
-        if (response.status !== 200) throw Error(body.message);
+        if (response.status !== 200) {
+            throw Error(body.message);
+        }
+        else if (typeof body.errorCode !== 'undefined') {
+            this.setState({ trendTopicDataInArea: body });
 
-        return body;
+        }
+        else {
+            this.setState({ trendTopicDataInArea: body.trendTopics });
+
+        }
+
     };
 
     getTrendTopicsInWorldWide = async () => {
@@ -73,12 +79,17 @@ class App extends Component {
         response = await fetch('api/getTrendTopics/inWorldWide');
         const body = await response.json();
 
-        if (response.status !== 200) throw Error(body.message);
+        if (response.status !== 200) {
+            throw Error(body.message);
+        }
+        else if (typeof body.errorCode !== 'undefined') {
+            this.setState({ trendTopicDataInWorldWide: body });
+        }
 
-        return body;
+        else {
+            this.setState({ trendTopicDataInWorldWide: body.trendTopics });
+        }
     };
-
-
 
 
     handleChartData(chartData) {

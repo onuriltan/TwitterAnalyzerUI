@@ -6,6 +6,8 @@ import * as actions from '../../actions';
 import PropTypes from 'prop-types';
 
 import CircularProgress from 'material-ui/CircularProgress';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -15,20 +17,20 @@ let SelectableList = makeSelectable(List);
 
 class TrendTopics extends Component {
 
-    handleClick(trendTopic) {
-        let payload = {
-            data: {
-                keyword: trendTopic,
-            }
+    constructor(props) {
+        super(props);
+        this.state = {
+            trendTopicData: this.props.trendTopicData,
+            address: ''
         }
+        this.getAddressFromUser = this.getAddressFromUser.bind(this);
 
-        this.props.actions.set_keyword_field(payload);
 
     }
 
 
     render() {
-        if (this.props.trendTopicData.length !== 0) {
+        if (!this.props.trendTopicData.hasOwnProperty('errorCode') && this.props.trendTopicData.length !== 0) {
             return (
                 <div className="trendtopics">
                     <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
@@ -58,24 +60,94 @@ class TrendTopics extends Component {
 
             );
         }
-        return (
+        if (this.props.trendTopicData.hasOwnProperty('errorCode')) {
+            return (
+                <div className="trendtopics">
+                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                    <div className="enteraddress"
+                        style={{
+                            margin: 'auto',
+                            display: 'block',
+                            justifyContent: 'center',
+                            textAlign: 'center'
 
+                        }}>
+                        <div className="addressField"
+                            style={{
+                                margin: '2%'
+                            }}>
+                            <TextField
+                                hintText="Address"
+                                floatingLabelText="Enter your address to get trends"
+                                floatingLabelFocusStyle={{ color: 'black' }}
+                                underlineFocusStyle={{ borderColor: '#ff4081' }}
+                                type="keyword"
+                                errorText=""
+                                onChange={this.getAddressFromUser}
+
+                            />
+                        </div>
+                        <div className="searchTrendsButton"
+                            style={{
+                                margin: '2%'
+
+                            }}>
+                            <RaisedButton className="bttn" label="Search" onClick={() => this.searchTrendTopics()} />
+                        </div>
+
+                    </div>
+
+                </div >
+
+            );
+        }
+
+        return (
             <div className="trendtopics" >
                 <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
-                <CircularProgress id="circularProgrss" size={60} thickness={7} color='black' 
+                <CircularProgress id="circularProgrss" size={60} thickness={7} color='black'
                     style={{
                         display: 'flex',
                         margin: 'auto',
-                        paddingTop : '5%',
+                        paddingTop: '5%',
                         justifyContent: 'center'
-
-                        }} />
+                    }} />
             </div>
         );
 
+
     }
 
+    getAddressFromUser(event) {
+        this.setState({ address: event.target.value })
+    }
+
+
+
+    searchTrendTopics = async () => {
+        this.setState({ trendTopicData: [] })
+
+        let response = null;
+        response = await fetch('api/getTrendTopics/byAddress?address=' + this.state.address);
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(body.message);
+        }
+        else if (typeof body.errorCode !== 'undefined') {
+            this.setState({ trendTopicData: body });
+
+        }
+        else {
+            this.setState({ trendTopicData: body.trendTopics });
+        }
+    };
+
+
+
 }
+
+
 TrendTopics.propTypes = {
     actions: PropTypes.object,
     initialState: PropTypes.object
