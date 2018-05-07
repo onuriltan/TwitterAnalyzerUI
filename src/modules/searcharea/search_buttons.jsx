@@ -82,6 +82,23 @@ class SearchButtons extends Component {
 
             return this.props.actions.stop_twitter_stream(payload);
         }
+
+        var sock = new SockJS('/fetchTwitterStream');
+        sock.onopen = function() {
+            console.log('open');
+            sock.send('test');
+        };
+       
+        sock.onmessage = function(e) {
+            console.log('message', e.data);
+            sock.close();
+        };
+       
+        sock.onclose = function() {
+            console.log('close');
+        };
+
+
     }
 
     start_twitter_stream() {

@@ -16,6 +16,8 @@ let fetchTwitterStream = sockjs.createServer({ sockjs_url: 'http://cdn.jsdelivr.
 fetchTwitterStream.on('connection', function(conn) {
     conn.on('data', function(message) {
         conn.write(message);
+        console.log(message);
+
     });
     conn.on('close', function() {
       console.log('Closing ' + conn);

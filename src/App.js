@@ -7,6 +7,9 @@ import './App.scss';
 import SearchArea from './modules/searcharea';
 import Board from './modules/board';
 
+import update from 'immutability-helper';
+
+
 
 
 
@@ -16,8 +19,14 @@ class App extends Component {
         super(props);
 
         this.state = {
-            trendTopicDataInArea: [],
-            trendTopicDataInWorldWide: [],
+            trendTopicDataInArea:{
+                errorCode: '',
+                trendTopics : []
+            },
+            trendTopicDataInWorldWide:{
+                errorCode: '',
+                trendTopics : []
+            },
             address: '',
             woeid: '',
             mapData: {
@@ -64,11 +73,19 @@ class App extends Component {
             throw Error(body.message);
         }
         else if (typeof body.errorCode !== 'undefined') {
-            this.setState({ trendTopicDataInArea: body });
+            let newState = update(this.state.trendTopicDataInArea, {
+                errorCode: { $set: body.errorCode}
+                    
+             });
+            this.setState({ trendTopicDataInArea: newState });
 
         }
         else {
-            this.setState({ trendTopicDataInArea: body.trendTopics });
+            let newState = update(this.state.trendTopicDataInArea, {
+                trendTopics: { $set: body.trendTopics}
+                    
+             });
+            this.setState({ trendTopicDataInArea: newState });
 
         }
 
@@ -83,12 +100,22 @@ class App extends Component {
             throw Error(body.message);
         }
         else if (typeof body.errorCode !== 'undefined') {
-            this.setState({ trendTopicDataInWorldWide: body });
+            let newState = update(this.state.trendTopicDataInWorldWide, {
+                errorCode: { $set: body.errorCode}
+                    
+             });
+            this.setState({ trendTopicDataInWorldWide: newState });
+
+        }
+        else {
+            let newState = update(this.state.trendTopicDataInWorldWide, {
+                trendTopics: { $set: body.trendTopics}
+                    
+             });
+            this.setState({ trendTopicDataInWorldWide: newState });
+
         }
 
-        else {
-            this.setState({ trendTopicDataInWorldWide: body.trendTopics });
-        }
     };
 
 

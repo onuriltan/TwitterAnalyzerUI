@@ -30,37 +30,40 @@ class TrendTopics extends Component {
 
 
     render() {
-        if (!this.props.trendTopicData.hasOwnProperty('errorCode') && this.props.trendTopicData.length !== 0) {
-            return (
-                <div className="trendtopics">
-                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
-                    <SelectableList id="trendtopicid"
-                        style={{
-                            maxHeight: '8em', overflow: 'auto', transform: 'scaleX(-1)',
-                            float: 'none',
-                            width: '20em',
-                            marginLeft: 'auto',
-                            marginRight: 'auto'
+        if (this.props.trendTopicData.errorCode === '') {
+            console.log(this.props.trendTopicData.trendTopics);
+            if (this.props.trendTopicData.trendTopics.length !== 0) {
+                return (
+                    <div className="trendtopics">
+                        <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                        <SelectableList id="trendtopicid"
+                            style={{
+                                maxHeight: '8em', overflow: 'auto', transform: 'scaleX(-1)',
+                                float: 'none',
+                                width: '20em',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
 
-                        }}>
-                        <div className="trendtopiclistitems" style={{ transform: 'scaleX(-1)' }}>
-                            {
-                                this.props.trendTopicData.map((trendTopic) =>
-                                    <ListItem
-                                        key={trendTopic}
-                                        value={trendTopic}
-                                        primaryText={trendTopic}
-                                        onClick={() => this.handleClick(trendTopic)}
-                                    />
-                                )
-                            }
-                        </div>
-                    </SelectableList>
-                </div>
+                            }}>
+                            <div className="trendtopiclistitems" style={{ transform: 'scaleX(-1)' }}>
+                                {
+                                    this.props.trendTopicData.trendTopics.map((trendTopic) =>
+                                        <ListItem
+                                            key={trendTopic}
+                                            value={trendTopic}
+                                            primaryText={trendTopic}
+                                            onClick={() => this.handleClick(trendTopic)}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </SelectableList>
+                    </div>
 
-            );
+                );
+            }
         }
-        if (this.props.trendTopicData.hasOwnProperty('errorCode')) {
+        if (this.props.trendTopicData.errorCode !== '') {
             return (
                 <div className="trendtopics">
                     <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
