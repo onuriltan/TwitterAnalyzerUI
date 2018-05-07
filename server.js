@@ -1,18 +1,40 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-const timeout = require('connect-timeout');
+const sockjs = require('sockjs');
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/api/ping', function (req, res) {
-  return res.send('pong');
+
+
+
+/*            SOCKET            */
+
+let fetchTwitterStream = sockjs.createServer({ sockjs_url: 'http://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js' });
+fetchTwitterStream.on('connection', function(conn) {
+    conn.on('data', function(message) {
+        conn.write(message);
+    });
+    conn.on('close', function() {
+      console.log('Closing ' + conn);
+    });
 });
+
+fetchTwitterStream.installHandlers(app, {prefix:'/fetchTwitterStream'});
+
+
+
+/*             API             */
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+
+app.get('/api/ping', function (req, res) {
+  return res.send('pong');
 });
 
 app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
