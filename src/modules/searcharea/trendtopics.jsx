@@ -12,6 +12,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
+import update from 'immutability-helper';
+
+
 
 let SelectableList = makeSelectable(List);
 
@@ -20,7 +23,10 @@ class TrendTopics extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            trendTopicData: this.props.trendTopicData,
+            trendTopicData: {
+                errorCode: '',
+                trendTopics: []
+            },
             address: ''
         }
         this.getAddressFromUser = this.getAddressFromUser.bind(this);
@@ -28,11 +34,14 @@ class TrendTopics extends Component {
 
     }
 
+    componentWillReceiveProps(newProps) {
+        this.setState({ trendTopicData: newProps.trendTopicData });
+    }
+
 
     render() {
-        if (this.props.trendTopicData.errorCode === '') {
-            console.log(this.props.trendTopicData.trendTopics);
-            if (this.props.trendTopicData.trendTopics.length !== 0) {
+        if (this.state.trendTopicData.errorCode === '') {
+            if (this.state.trendTopicData.trendTopics.length !== 0) {
                 return (
                     <div className="trendtopics">
                         <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
@@ -47,7 +56,7 @@ class TrendTopics extends Component {
                             }}>
                             <div className="trendtopiclistitems" style={{ transform: 'scaleX(-1)' }}>
                                 {
-                                    this.props.trendTopicData.trendTopics.map((trendTopic) =>
+                                    this.state.trendTopicData.trendTopics.map((trendTopic) =>
                                         <ListItem
                                             key={trendTopic}
                                             value={trendTopic}
@@ -63,7 +72,7 @@ class TrendTopics extends Component {
                 );
             }
         }
-        if (this.props.trendTopicData.errorCode !== '') {
+        if (this.state.trendTopicData.errorCode !== '') {
             return (
                 <div className="trendtopics">
                     <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
@@ -128,7 +137,12 @@ class TrendTopics extends Component {
 
 
     searchTrendTopics = async () => {
-        this.setState({ trendTopicData: [] })
+        this.setState({
+            trendTopicData: {
+                errorCode: '',
+                trendTopics: []
+            }
+        })
 
         let response = null;
         response = await fetch('api/getTrendTopics/byAddress?address=' + this.state.address);
@@ -138,12 +152,22 @@ class TrendTopics extends Component {
             throw Error(body.message);
         }
         else if (typeof body.errorCode !== 'undefined') {
-            this.setState({ trendTopicData: body });
+            let newState = update(this.state.trendTopicData, {
+                errorCode: { $set: body.errorCode }
+
+            });
+            this.setState({ trendTopicData: newState });
 
         }
         else {
-            this.setState({ trendTopicData: body.trendTopics });
+            let newState = update(this.state.trendTopicData, {
+                trendTopics: { $set: body.trendTopics }
+
+            });
+            this.setState({ trendTopicData: newState });
+
         }
+
     };
 
 
