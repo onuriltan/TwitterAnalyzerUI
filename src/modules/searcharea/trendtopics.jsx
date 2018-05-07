@@ -130,6 +130,19 @@ class TrendTopics extends Component {
 
     }
 
+    
+    handleClick(trendTopic) {
+        let payload = {
+            data: {
+                keyword: trendTopic,
+            }
+        }
+
+        this.props.actions.set_keyword_field(payload);
+
+    }
+
+
     getAddressFromUser(event) {
         this.setState({ address: event.target.value })
     }
