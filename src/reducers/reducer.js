@@ -13,7 +13,8 @@ import {
     UPDATE_TWEETSLOCATION_DATA,
     RESET_DATA,
     SET_KEYWORD_FIELD,
-    SET_CSRF_TOKEN
+    UPDATE_TRENDS_INAREA,
+    UPDATE_TRENDS_INWORLDWIDE
 
 } from '../actions/action_types';
 
@@ -50,13 +51,6 @@ export default function reducer(state = initialState, action) {
             return update(
                 state, {
                     keyword: { $set: action.payload.data.keyword }
-                }
-            );
-
-        case SET_CSRF_TOKEN:
-            return update(
-                state, {
-                    csrf: { $set: action.payload.data.csrf }
                 }
             );
 
@@ -101,10 +95,25 @@ export default function reducer(state = initialState, action) {
                     others: { $merge: action.payload.data.others }
                 }
             );
+
         case UPDATE_TWEETSLOCATION_DATA:
             return update(
                 state, {
                     tweetslocation: { $merge: action.payload.data.tweetslocation }
+                }
+            );
+
+        case UPDATE_TRENDS_INAREA:
+            return update(
+                state, {
+                    trendTopicDataInArea: { $set: action.payload.data.trendTopicDataInArea }
+                }
+            );
+
+        case UPDATE_TRENDS_INWORLDWIDE:
+            return update(
+                state, {
+                    trendTopicDataInWorldWide: { $set: action.payload.data.trendTopicDataInWorldWide }
                 }
             );
 

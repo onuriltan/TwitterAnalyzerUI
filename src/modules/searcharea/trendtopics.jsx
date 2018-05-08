@@ -12,8 +12,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
-import update from 'immutability-helper';
-
 
 
 let SelectableList = makeSelectable(List);
@@ -22,6 +20,7 @@ class TrendTopics extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             trendTopicData: {
                 errorCode: '',
@@ -29,13 +28,23 @@ class TrendTopics extends Component {
             },
             address: ''
         }
+
         this.getAddressFromUser = this.getAddressFromUser.bind(this);
 
 
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({ trendTopicData: newProps.trendTopicData });
+    componentWillReceiveProps(nextProps) {
+        if (this.props.trendTopicName === "Trends In Your Area") {
+            this.setState({
+                trendTopicData: nextProps.state.reducer.trendTopicDataInArea,
+            })
+        }
+        if (this.props.trendTopicName === "Trends In WorldWide") {
+            this.setState({
+                trendTopicData: nextProps.state.reducer.trendTopicDataInWorldWide
+            })
+        }
     }
 
 
@@ -89,8 +98,8 @@ class TrendTopics extends Component {
                                 margin: '2%'
                             }}>
                             <TextField
-                                hintText="Address"
-                                floatingLabelText="Enter your address to get trends"
+                                hintText="City Name"
+                                floatingLabelText="Enter your city to get trends"
                                 floatingLabelFocusStyle={{ color: 'black' }}
                                 underlineFocusStyle={{ borderColor: '#ff4081' }}
                                 type="keyword"
@@ -130,7 +139,7 @@ class TrendTopics extends Component {
 
     }
 
-    
+
     handleClick(trendTopic) {
         let payload = {
             data: {
@@ -165,24 +174,59 @@ class TrendTopics extends Component {
             throw Error(body.message);
         }
         else if (typeof body.errorCode !== 'undefined') {
-            let newState = update(this.state.trendTopicData, {
-                errorCode: { $set: body.errorCode }
+            if (this.props.trendTopicName === "Trends In Your Area") {
+                let payload = {
+                    data: {
+                        trendTopicDataInArea: {
+                            errorCode: body.errorCode,
+                            trendTopics: []
+                        },
+                    }
+                }
 
-            });
-            this.setState({ trendTopicData: newState });
+                this.props.actions.update_trendtopics_inarea(payload);
+            } else {
+                let payload = {
+                    data: {
+                        trendTopicDataInWorldWide: {
+                            errorCode: body.errorCode,
+                            trendTopics: []
+                        },
+                    }
+                }
+
+                this.props.actions.update_trendtopics_inworldwide(payload);
+            }
 
         }
         else {
-            let newState = update(this.state.trendTopicData, {
-                trendTopics: { $set: body.trendTopics }
+            if (this.props.trendTopicName === "Trends In Your Area") {
+                let payload = {
+                    data: {
+                        trendTopicDataInArea: {
+                            errorCode: '',
+                            trendTopics: body.trendTopics
+                        },
+                    }
+                }
 
-            });
-            this.setState({ trendTopicData: newState });
+                this.props.actions.update_trendtopics_inarea(payload);
+            } else {
+                let payload = {
+                    data: {
+                        trendTopicDataInWorldWide: {
+                            errorCode: '',
+                            trendTopics: body.trendTopics
+                        },
+                    }
+                }
+
+                this.props.actions.update_trendtopics_inworldwide(payload);
+            }
 
         }
 
     };
-
 
 
 }

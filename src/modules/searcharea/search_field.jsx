@@ -14,11 +14,11 @@ class SearchField extends Component {
     this.change_keyword = this.change_keyword.bind(this);
     this.state = {
       errorText: ''
-  };
+    };
   }
 
   render() {
-   
+
     return (
       <div className="searchfield">
         <TextField
@@ -27,7 +27,7 @@ class SearchField extends Component {
           floatingLabelFocusStyle={{ color: 'black' }}
           underlineFocusStyle={{ borderColor: '#ff4081' }}
           type="keyword"
-          errorText= ""
+          errorText=""
           onChange={this.change_keyword}
           value={this.props.state.reducer.keyword}
         />
@@ -39,12 +39,12 @@ class SearchField extends Component {
   change_keyword(event) {
     var keyword = event.target.value;
     this.setState({ keyword: event.target.value })
-      let payload = {
-        data: {
-          keyword: keyword,
-        }
+    let payload = {
+      data: {
+        keyword: keyword,
       }
-      this.props.actions.set_keyword_field(payload);
+    }
+    this.props.actions.set_keyword_field(payload);
 
   }
 }

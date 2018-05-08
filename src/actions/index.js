@@ -9,9 +9,11 @@ import {
     UPDATE_ORGANIZATION_DATA,
     UPDATE_OTHERS_DATA,
     UPDATE_TWEETSLOCATION_DATA,
+    UPDATE_TRENDS_INAREA,
+    UPDATE_TRENDS_INWORLDWIDE,
     RESET_DATA,
     SET_KEYWORD_FIELD,
-    SET_CSRF_TOKEN
+
 } from '../actions/action_types';
 
 export function build_twitter_stream(state) {
@@ -94,6 +96,22 @@ export function update_tweetslocation_data(state) {
 
 }
 
+export function update_trendtopics_inarea(state) {
+    return {
+        type: UPDATE_TRENDS_INAREA,
+        payload: state
+    };
+
+}
+
+export function update_trendtopics_inworldwide(state) {
+    return {
+        type: UPDATE_TRENDS_INWORLDWIDE,
+        payload: state
+    };
+
+}
+
 export function reset_data(state) {
     return {
         type: RESET_DATA,
@@ -110,11 +128,4 @@ export function set_keyword_field(state) {
 
 }
 
-export function set_csrf_token(state) {
-    return {
-        type: SET_CSRF_TOKEN,
-        payload: state
-    };
-
-}
 

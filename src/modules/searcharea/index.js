@@ -11,12 +11,14 @@ export default class extends Component {
     render() {
         return (
             <div className = "searcharea">
-                <TrendTopics trendTopicName="Trends In Your Area" trendTopicData={this.props.trendTopicDataInArea} />
+                <TrendTopics trendTopicName="Trends In Your Area"/>
+
                 <div className ="middlesection">
                     <Description />
                     <SearchButtons newChartDataListener={this.props.newChartDataListener} newMapDataListener={this.props.newMapDataListener} newTweetPanelListener={this.props.newTweetPanelListener}/>
                 </div>
-                <TrendTopics trendTopicName="Trends In WorldWide" trendTopicData={this.props.trendTopicDataInWorldWide} />
+                
+                <TrendTopics trendTopicName="Trends In WorldWide"/>
 
             </div>
         );
