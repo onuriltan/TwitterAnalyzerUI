@@ -126,6 +126,9 @@ class SearchButtons extends Component {
 
             stompClient.debug = null;
             stompClient.connect({}, function (frame) {
+                Alertify.logPosition("top right");
+                Alertify.success('Receiving twitter stream ...');
+
                 stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
                     let payload_initialload = {
                         data: {
