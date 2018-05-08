@@ -94,14 +94,14 @@ class SearchButtons extends Component {
             this.setState({ stop_disabled: false });
             var payload = {
                 data: {
-                    csrf: null,
                     socketConnection: null,
                     tweets: [],
                     location: {},
                     organization: {},
                     person: {},
                     tweetslocation: [],
-                    others: {}
+                    others: {},
+                    searchTextError: ""
                 }
             }
 

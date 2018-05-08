@@ -8,8 +8,8 @@ export default {
     location: {},
     organization: {},
     person: {},
-    tweetslocation: [],
     others: {},
+    tweetslocation: [],
     trendTopicDataInArea: {
         errorCode: '',
         trendTopics: []
