@@ -80,8 +80,12 @@ class SearchButtons extends Component {
                 }
             }
 
-            return this.props.actions.stop_twitter_stream(payload);
+            this.props.actions.stop_twitter_stream(payload);
+
         }
+        Alertify.logPosition("top right");
+        Alertify.log('Twitter stream stopped');
+
 
 
     }
@@ -114,7 +118,6 @@ class SearchButtons extends Component {
 
 
             let stompClient = null;
-            var that = this;
             let socket;
             if (process.env.NODE_ENV === "development") {
                 socket = new SockJS('http://localhost:8080/twitterStream');
@@ -127,20 +130,20 @@ class SearchButtons extends Component {
             stompClient.debug = null;
             stompClient.connect({}, function (frame) {
                 Alertify.logPosition("top right");
-                Alertify.success('Receiving twitter stream ...');
+                Alertify.log('Receiving twitter stream');
 
                 stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
                     let payload_initialload = {
                         data: {
-                            initialload: that.props.state.reducer.initialload,
+                            initialload: this.props.state.reducer.initialload,
                         }
                     }
-                    that.props.actions.update_inital_load(payload_initialload);
+                    this.props.actions.update_inital_load(payload_initialload);
                     let tweet = JSON.parse(tokenizedTweet.body);
 
                     if (tweet.exception !== null) {
                         if (tweet.exception === "420") {
-                            that.stop_twitter_stream();
+                            this.stop_twitter_stream();
                             Alertify.alert('Twitter API rate limit exceeded by other users.');
                         }
                     }
@@ -148,7 +151,7 @@ class SearchButtons extends Component {
                     if (tweet.forStreamPanel === true) {
                         let payload = {
                             data: {
-                                tweets: that.props.state.reducer.tweets,
+                                tweets: this.props.state.reducer.tweets,
                             }
                         }
                         payload.data.tweets.unshift(
@@ -162,25 +165,25 @@ class SearchButtons extends Component {
                         );
 
                         var temp = false;
-                        that.props.state.reducer.tweets.forEach((theTweet) => {
+                        this.props.state.reducer.tweets.forEach((theTweet) => {
                             if (theTweet.link === tweet.link) {
                                 temp = true;
                             }
                         });
                         if (temp === false) {
-                            that.props.actions.update_tweets_data(payload);
-                            that.props.newTweetPanelListener(payload);
+                            this.props.actions.update_tweets_data(payload);
+                            this.props.newTweetPanelListener(payload);
                         }
                     }
                     if (tweet.latitude !== null && tweet.longitude !== null) {
                         let payload = {
                             data: {
-                                tweetslocation: that.props.state.reducer.tweetslocation,
+                                tweetslocation: this.props.state.reducer.tweetslocation,
                             }
                         }
                         payload.data.tweetslocation.push(
                             {
-                                "svgPath": that.props.state.reducer.targetSVG,
+                                "svgPath": this.props.state.reducer.targetSVG,
                                 "zoomLevel": 5,
                                 "scale": 0.5,
                                 "title": tweet.tweet,
@@ -188,20 +191,20 @@ class SearchButtons extends Component {
                                 "longitude": tweet.longitude
                             }
                         );
-                        that.props.actions.update_tweetslocation_data(payload);
-                        that.props.newMapDataListener(payload);
+                        this.props.actions.update_tweetslocation_data(payload);
+                        this.props.newMapDataListener(payload);
 
                     }
                     if (tweet.namedEntity === 'PERSON') {
                         var payload_person = {
                             data: {
-                                person: that.props.state.reducer.person,
-                                location: that.props.state.reducer.location,
-                                organization: that.props.state.reducer.organization,
-                                others: that.props.state.reducer.others
+                                person: this.props.state.reducer.person,
+                                location: this.props.state.reducer.location,
+                                organization: this.props.state.reducer.organization,
+                                others: this.props.state.reducer.others
                             }
                         }
-                        let personMap = that.props.state.reducer.person;
+                        let personMap = this.props.state.reducer.person;
                         if (tweet.word in personMap) {
                             Object.entries(personMap).forEach(([key, value]) => {
                                 if (key === tweet.word) {
@@ -214,21 +217,21 @@ class SearchButtons extends Component {
                             payload_person.data.person[tweet.word] = 1;
                         }
 
-                        that.props.actions.update_person_data(payload_person);
-                        that.props.newChartDataListener(payload_person);
+                        this.props.actions.update_person_data(payload_person);
+                        this.props.newChartDataListener(payload_person);
 
                     }
 
                     if (tweet.namedEntity === 'LOCATION' || tweet.namedEntity === 'COUNTRY' || tweet.namedEntity === 'STATE_OR_PROVINCE') {
                         var payload_location = {
                             data: {
-                                person: that.props.state.reducer.person,
-                                location: that.props.state.reducer.location,
-                                organization: that.props.state.reducer.organization,
-                                others: that.props.state.reducer.others
+                                person: this.props.state.reducer.person,
+                                location: this.props.state.reducer.location,
+                                organization: this.props.state.reducer.organization,
+                                others: this.props.state.reducer.others
                             }
                         }
-                        let locationMap = that.props.state.reducer.location;
+                        let locationMap = this.props.state.reducer.location;
                         if (tweet.word in locationMap) {
                             Object.entries(locationMap).forEach(([key, value]) => {
                                 if (key === tweet.word) {
@@ -241,20 +244,20 @@ class SearchButtons extends Component {
                         else {
                             payload_location.data.location[tweet.word] = 1;
                         }
-                        that.props.actions.update_location_data(payload_location);
-                        that.props.newChartDataListener(payload_location);
+                        this.props.actions.update_location_data(payload_location);
+                        this.props.newChartDataListener(payload_location);
                     }
 
                     if (tweet.namedEntity === 'ORGANIZATION') {
                         var payload_organization = {
                             data: {
-                                person: that.props.state.reducer.person,
-                                location: that.props.state.reducer.location,
-                                organization: that.props.state.reducer.organization,
-                                others: that.props.state.reducer.others
+                                person: this.props.state.reducer.person,
+                                location: this.props.state.reducer.location,
+                                organization: this.props.state.reducer.organization,
+                                others: this.props.state.reducer.others
                             }
                         }
-                        let organizationMap = that.props.state.reducer.organization;
+                        let organizationMap = this.props.state.reducer.organization;
                         if (tweet.word in organizationMap) {
                             Object.entries(organizationMap).forEach(([key, value]) => {
                                 if (key === tweet.word) {
@@ -266,20 +269,20 @@ class SearchButtons extends Component {
                         else {
                             payload_organization.data.organization[tweet.word] = 1;
                         }
-                        that.props.actions.update_organization_data(payload_organization);
-                        that.props.newChartDataListener(payload_organization);
+                        this.props.actions.update_organization_data(payload_organization);
+                        this.props.newChartDataListener(payload_organization);
                     }
 
                     else {
                         var payload_others = {
                             data: {
-                                person: that.props.state.reducer.person,
-                                location: that.props.state.reducer.location,
-                                organization: that.props.state.reducer.organization,
-                                others: that.props.state.reducer.others
+                                person: this.props.state.reducer.person,
+                                location: this.props.state.reducer.location,
+                                organization: this.props.state.reducer.organization,
+                                others: this.props.state.reducer.others
                             }
                         }
-                        let othersMap = that.props.state.reducer.others;
+                        let othersMap = this.props.state.reducer.others;
                         if (tweet.word in othersMap) {
                             Object.entries(othersMap).forEach(([key, value]) => {
                                 if (key === tweet.word) {
@@ -291,21 +294,21 @@ class SearchButtons extends Component {
                         else {
                             payload_others.data.others[tweet.word] = 1;
                         }
-                        that.props.actions.update_others_data(payload_others);
-                        that.props.newChartDataListener(payload_others);
+                        this.props.actions.update_others_data(payload_others);
+                        this.props.newChartDataListener(payload_others);
                     }
 
 
-                });
-                stompClient.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'start', 'message': that.props.state.reducer.keyword }));
+                }.bind(this));
+                stompClient.send("/app/manageTwitterStream", {}, JSON.stringify({ 'command': 'start', 'message': this.props.state.reducer.keyword }));
                 let payload = {
                     data: {
                         socketConnection: stompClient
                     }
                 }
-                that.props.actions.start_twitter_stream(payload);
+                this.props.actions.start_twitter_stream(payload);
 
-            });
+            }.bind(this));
 
         }
         if (this.props.state.reducer.keyword.length < 4) {
