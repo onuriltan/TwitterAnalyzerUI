@@ -49,6 +49,7 @@ class TrendTopics extends Component {
 
 
     render() {
+
         if (this.state.trendTopicData.errorCode === '') {
             if (this.state.trendTopicData.trendTopics.length !== 0) {
                 return (
@@ -81,7 +82,7 @@ class TrendTopics extends Component {
                 );
             }
         }
-        if (this.state.trendTopicData.errorCode !== '') {
+        if (parseInt(this.state.trendTopicData.errorCode, 10) === 400) {
             return (
                 <div className="trendtopics">
                     <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
@@ -115,6 +116,35 @@ class TrendTopics extends Component {
                             }}>
                             <RaisedButton className="bttn" label="Search" onClick={() => this.searchTrendTopics()} />
                         </div>
+
+                    </div>
+
+                </div >
+
+            );
+        }
+
+        if (parseInt(this.state.trendTopicData.errorCode, 10) === 401) {
+            return (
+                <div className="trendtopics">
+                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                    <div className="enteraddress"
+                        style={{
+                            margin: 'auto',
+                            display: 'block',
+                            justifyContent: 'center',
+                            textAlign: 'center'
+
+                        }}>
+                        <label className="errorExplanation"
+                            style={{
+                                marginTop: '5%',
+                                display: 'block',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                fontSize: '120%'
+
+                            }}> Trends api rate limited </label>
 
                     </div>
 
