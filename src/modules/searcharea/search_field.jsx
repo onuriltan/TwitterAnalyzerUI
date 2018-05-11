@@ -21,7 +21,7 @@ class SearchField extends Component {
 
     return (
       <div className="searchfield">
-        <TextField
+        <TextField className="searchFieldText"
           hintText="Keyword"
           floatingLabelText="Enter keyword"
           floatingLabelFocusStyle={{ color: 'black' }}

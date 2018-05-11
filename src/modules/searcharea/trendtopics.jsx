@@ -54,17 +54,9 @@ class TrendTopics extends Component {
             if (this.state.trendTopicData.trendTopics.length !== 0) {
                 return (
                     <div className="trendtopics">
-                        <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
-                        <SelectableList id="trendtopicid"
-                            style={{
-                                maxHeight: '8em', overflow: 'auto', transform: 'scaleX(-1)',
-                                float: 'none',
-                                width: '20em',
-                                marginLeft: 'auto',
-                                marginRight: 'auto'
-
-                            }}>
-                            <div className="trendtopiclistitems" style={{ transform: 'scaleX(-1)' }}>
+                        <Subheader className="trendtopicheader">{this.props.trendTopicName}</Subheader>
+                        <SelectableList id="trendtopicid">
+                            <div className="trendtopiclistitems">
                                 {
                                     this.state.trendTopicData.trendTopics.map((trendTopic) =>
                                         <ListItem
@@ -85,7 +77,7 @@ class TrendTopics extends Component {
         if (parseInt(this.state.trendTopicData.errorCode, 10) === 400) {
             return (
                 <div className="trendtopics">
-                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                    <Subheader className="trendtopicheader">{this.props.trendTopicName}</Subheader>
                     <div className="enteraddress"
                         style={{
                             margin: 'auto',
@@ -127,7 +119,7 @@ class TrendTopics extends Component {
         if (parseInt(this.state.trendTopicData.errorCode, 10) === 401) {
             return (
                 <div className="trendtopics">
-                    <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                    <Subheader className="trendtopicheader">{this.props.trendTopicName}</Subheader>
                     <div className="enteraddress"
                         style={{
                             margin: 'auto',
@@ -155,7 +147,7 @@ class TrendTopics extends Component {
 
         return (
             <div className="trendtopics" >
-                <Subheader style={{ fontSize: '200%', textAlign: 'center', fontFamily: 'Permanent Marker, cursive', color: 'black' }}>{this.props.trendTopicName}</Subheader>
+                <Subheader className="trendtopicheader">{this.props.trendTopicName}</Subheader>
                 <CircularProgress id="circularProgrss" size={60} thickness={7} color='black'
                     style={{
                         display: 'flex',

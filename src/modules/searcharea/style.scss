@@ -7,6 +7,26 @@
         width: 20%;
         margin-top: 2%;
         margin-bottom: 2%;
+
+        .trendtopicheader {
+            font-size: 200% !important;
+            text-align: center !important;
+            font-family: 'Permanent Marker', cursive !important;
+            color: black !important;
+        }
+        #trendtopicid {
+            max-height: 8em;
+            overflow: auto; 
+            transform: scaleX(-1);
+            float: none;
+            width: 20em;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+        .trendtopiclistitems {
+            transform: scaleX(-1);
+        }
         #trendtopicid::-webkit-scrollbar {
             box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -38,10 +58,37 @@
                 .bttn {
                     margin : 1em 0.5em;
                     justify-content: right;
+                }
             }
         }
-      }
 
     }
     
+}
+
+@media only screen and (max-width: 800px) {
+    .searcharea{
+        .trendtopics {
+            .trendtopicheader {
+                font-size: 100% !important;
+            }
+            #trendtopicid {
+                span {
+                    font-size: 50% !important;
+                }
+                
+            }
+        }
+    .middlesection{
+        .description {
+            font-size: 200%;
+        }
+    }
+
+    .searchfield > div label {
+        font-size: 12px;
+    }
+    
+  
+ }
 }
