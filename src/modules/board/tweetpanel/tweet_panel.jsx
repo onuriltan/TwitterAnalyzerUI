@@ -48,7 +48,10 @@ class TweetPanel extends Component {
                                     <TableRow
                                         key={tweet.username + "," + this.props.tweetData.data.tweets.length}
                                        >
-                                       <TableRowColumn > <a target="_blank" href={tweet.link}>{tweet.username}</a></TableRowColumn>
+                                       <TableRowColumn style={{
+                                                whiteSpace: "normal",
+                                                wordWrap: "break-word"
+                                            }}> <a target="_blank" href={tweet.link}>{tweet.username}</a></TableRowColumn>
                                         <TableRowColumn
                                             style={{
                                                 whiteSpace: "normal",
