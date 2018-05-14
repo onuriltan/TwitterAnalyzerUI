@@ -57,8 +57,14 @@ class TweetPanel extends Component {
                                         >
                                             {tweet.tweet}
                                         </TableRowColumn>
-                                        <TableRowColumn>{tweet.location}</TableRowColumn>
-                                        <TableRowColumn>{tweet.createDate}</TableRowColumn>
+                                        <TableRowColumn style={{
+                                                whiteSpace: "normal",
+                                                wordWrap: "break-word"
+                                            }}>{tweet.location}</TableRowColumn>
+                                        <TableRowColumn style={{
+                                                whiteSpace: "normal",
+                                                wordWrap: "break-word"
+                                            }}>{tweet.createDate}</TableRowColumn>
 
                                     </TableRow>
                                 )

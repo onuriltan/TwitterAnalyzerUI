@@ -35,7 +35,7 @@ class TrendTopics extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.trendTopicName === "Trends In Your Area") {
+        if (this.props.trendTopicName === "Trends In Area") {
             this.setState({
                 trendTopicData: nextProps.state.reducer.trendTopicDataInArea,
             })

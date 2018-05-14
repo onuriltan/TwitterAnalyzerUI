@@ -55,3 +55,37 @@
 
 }
 
+@media only screen and (max-width: 800px) {
+    .board {
+        .tabs {
+            .customtab {
+                font-size: 10px !important;
+            }
+        }
+        .tweetpanel {
+            #tweetpanel_paper {
+                div{
+                    div{
+                        table {
+                            tbody {
+                                tr {
+                                    td {
+                                        font-size: 8px !important;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+            
+
+
+
+
+}
+

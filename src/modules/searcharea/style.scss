@@ -69,11 +69,15 @@
 
 @media only screen and (max-width: 800px) {
     .searcharea{
+        display: flex;
+        max-height: 20em;
+        justify-content: center;
         .trendtopics {
             .trendtopicheader {
                 font-size: 100% !important;
             }
             #trendtopicid {
+                width: auto !important;
                 span {
                     font-size: 50% !important;
                 }

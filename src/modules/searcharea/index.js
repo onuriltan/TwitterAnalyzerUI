@@ -11,7 +11,7 @@ export default class extends Component {
     render() {
         return (
             <div className = "searcharea">
-                <TrendTopics trendTopicName="Trends In Your Area"/>
+                <TrendTopics trendTopicName="Trends In Area"/>
 
                 <div className ="middlesection">
                     <Description />

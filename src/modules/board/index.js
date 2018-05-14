@@ -18,7 +18,7 @@ export default class extends Component {
     render() {
         return (
             <div className="board">
-                <Tabs>
+                <Tabs className="tabs">
                     <Tab
                         icon={<FontIcon className="material-icons">location_on</FontIcon>}
                         label="TWEETMAP"
