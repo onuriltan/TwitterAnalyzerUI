@@ -4,7 +4,6 @@
     justify-content: center;
 
     .trendtopics {
-        width: 20%;
         margin-top: 2%;
         margin-bottom: 2%;
 
@@ -13,15 +12,17 @@
             text-align: center !important;
             font-family: 'Permanent Marker', cursive !important;
             color: black !important;
+            width: auto !important;
         }
         #trendtopicid {
             max-height: 8em;
             overflow: auto; 
             transform: scaleX(-1);
             float: none;
-            width: 20em;
+            width: auto;
             margin-left: auto;
             margin-right: auto;
+            text-align: center;
 
         }
         .trendtopiclistitems {
@@ -43,7 +44,7 @@
 
         .description {
             margin: 1%;
-            font-size: 350%;
+            font-size: 300%;
             display: flex;
             font-family: 'Permanent Marker', cursive;
             justify-content: center;
@@ -71,6 +72,73 @@
     
 }
 
+@media only screen and (max-width: 1200px) {
+    .searcharea{
+        .trendtopics {
+            .trendtopicheader {
+                font-size: 120% !important;
+                padding-left: 0px !important;
+            }
+            #trendtopicid {
+                span {
+                    font-size: 70% !important;
+                    text-align: center;
+                }
+                
+            }
+        }
+    .middlesection{
+        .description {
+            font-size: 190% !important;
+        }
+        .searchfield{
+            .textField {
+                width: 60% !important;
+                input {
+                    font-size: 13px !important;
+                }
+            }
+            label {
+                font-size: 15px !important;
+            }
+            .searchbuttons {
+                
+                .bttn{
+                    button {
+                        div {
+                            div {
+                                span {
+                                    text-align: center !important; 
+                                    padding-left: 5px !important;
+                                    padding-right: 5px !important;
+                                    font-size: 13px !important;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+                .bttn{
+                    button {
+                        div {
+                            span {
+                                text-align: center !important;
+                                padding-left: 5px !important;
+                                padding-right: 5px !important;
+                                font-size: 13px !important;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        
+    }
+    }
+}
+
 
 @media only screen and (max-width: 800px) {
     .searcharea{
@@ -83,9 +151,9 @@
                 padding-left: 0px !important;
             }
             #trendtopicid {
-                width: auto !important;
                 span {
                     font-size: 50% !important;
+                    text-align: center;
                 }
                 
             }
