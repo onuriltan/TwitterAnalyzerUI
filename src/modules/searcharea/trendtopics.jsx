@@ -40,7 +40,7 @@ class TrendTopics extends Component {
                 trendTopicData: nextProps.state.reducer.trendTopicDataInArea,
             })
         }
-        if (this.props.trendTopicName === "Trends In WorldWide") {
+        if (this.props.trendTopicName === "Trends In World") {
             this.setState({
                 trendTopicData: nextProps.state.reducer.trendTopicDataInWorldWide
             })

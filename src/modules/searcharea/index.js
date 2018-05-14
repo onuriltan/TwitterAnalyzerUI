@@ -18,7 +18,7 @@ export default class extends Component {
                     <SearchButtons newChartDataListener={this.props.newChartDataListener} newMapDataListener={this.props.newMapDataListener} newTweetPanelListener={this.props.newTweetPanelListener}/>
                 </div>
                 
-                <TrendTopics trendTopicName="Trends In WorldWide"/>
+                <TrendTopics trendTopicName="Trends In World"/>
 
             </div>
         );

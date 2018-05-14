@@ -42,6 +42,7 @@
         margin:0 2% 0 %2;
 
         .description {
+            margin: 1%;
             font-size: 350%;
             display: flex;
             font-family: 'Permanent Marker', cursive;
@@ -49,14 +50,18 @@
             text-align: center;
         }
         .searchfield{
+            margin: 1%;
             display: block;
             justify-content: center;
             text-align: center;
+            .textField {
+                margin: 1%;
+            }
             .searchbuttons {
                 display: flex;
                 justify-content: center;
                 .bttn {
-                    margin : 1em 0.5em;
+                    margin : 0.5em 0.5em;
                     justify-content: right;
                 }
             }
@@ -75,6 +80,7 @@
         .trendtopics {
             .trendtopicheader {
                 font-size: 100% !important;
+                padding-left: 0px !important;
             }
             #trendtopicid {
                 width: auto !important;
@@ -90,20 +96,27 @@
         }
         .searchfield{
             .textField {
-                width: 150px !important;
+                width: 100px !important;
+                input {
+                    font-size: 10px !important;
+                }
             }
             label {
                 font-size: 12px !important;
             }
             .searchbuttons {
                 .bttn {
-                    min-width: 50px !important;
+                    min-width: 30px !important;
+                    max-width: 60px !important;
                 }
                 .bttn{
                     button {
                         div {
                             div {
                                 span {
+                                    text-align: center !important; 
+                                    padding-left: 5px !important;
+                                    padding-right: 5px !important;
                                     font-size: 10px !important;
                                 }
                             }
@@ -116,6 +129,9 @@
                     button {
                         div {
                             span {
+                                text-align: center !important;
+                                padding-left: 5px !important;
+                                padding-right: 5px !important;
                                 font-size: 10px !important;
                             }
                         }
