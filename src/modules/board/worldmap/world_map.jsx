@@ -74,9 +74,7 @@ class WorldMap extends Component {
                 "zoomLongitude": this.state.zoomLongitude,
                 "images": [...this.state.mapData],
             },
-            "responsive": {
-                "enabled": true
-              }
+            
         });
 
         window.myMap = map;
