@@ -34,7 +34,9 @@ class SearchButtons extends Component {
     render() {
         return (
             <div className="searchfield">
+                
                 <TextField
+                    className="textField"
                     hintText="Keyword"
                     floatingLabelText="Enter keyword"
                     floatingLabelFocusStyle={{ color: 'black' }}

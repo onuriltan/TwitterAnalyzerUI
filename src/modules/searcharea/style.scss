@@ -66,6 +66,7 @@
     
 }
 
+
 @media only screen and (max-width: 800px) {
     .searcharea{
         .trendtopics {
@@ -81,14 +82,47 @@
         }
     .middlesection{
         .description {
-            font-size: 200%;
+            font-size: 200% !important;
         }
-    }
+        .searchfield{
+            .textField {
+                width: 150px !important;
+            }
+            label {
+                font-size: 12px !important;
+            }
+            .searchbuttons {
+                .bttn {
+                    min-width: 50px !important;
+                }
+                .bttn{
+                    button {
+                        div {
+                            div {
+                                span {
+                                    font-size: 10px !important;
+                                }
+                            }
 
-    .searchfield > div label {
-        font-size: 12px;
+                        }
+
+                    }
+                }
+                .bttn{
+                    button {
+                        div {
+                            span {
+                                font-size: 10px !important;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        
     }
-    
-  
- }
+    }
 }
+
+
