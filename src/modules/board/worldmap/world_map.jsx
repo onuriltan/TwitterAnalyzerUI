@@ -73,7 +73,10 @@ class WorldMap extends Component {
                 "zoomLatitude": this.state.zoomLatitude,
                 "zoomLongitude": this.state.zoomLongitude,
                 "images": [...this.state.mapData],
-            }
+            },
+            "responsive": {
+                "enabled": true
+              }
         });
 
         window.myMap = map;
