@@ -23,6 +23,10 @@
             margin-left: auto;
             margin-right: auto;
             text-align: center;
+            span {
+                text-align: center;
+                word-wrap: break-word !important;
+            }
 
         }
         .trendtopiclistitems {
@@ -83,6 +87,7 @@
                 span {
                     font-size: 70% !important;
                     text-align: center;
+                    word-wrap: break-word !important;
                 }
                 
             }
@@ -146,6 +151,7 @@
         max-height: 20em;
         justify-content: center;
         .trendtopics {
+            width: 30%;
             .trendtopicheader {
                 font-size: 80% !important;
                 padding-left: 0px !important;
@@ -154,6 +160,8 @@
                 span {
                     font-size: 50% !important;
                     text-align: center;
+                    word-wrap: break-word !important;
+
                 }
                 
             }
@@ -164,9 +172,10 @@
         }
         .searchfield{
             .textField {
-                width: 100px !important;
+                width: 120px !important;
                 input {
                     font-size: 10px !important;
+
                 }
             }
             label {
@@ -186,6 +195,7 @@
                                     padding-left: 5px !important;
                                     padding-right: 5px !important;
                                     font-size: 10px !important;
+
                                 }
                             }
 
@@ -201,6 +211,7 @@
                                 padding-left: 5px !important;
                                 padding-right: 5px !important;
                                 font-size: 10px !important;
+
                             }
                         }
                     }
