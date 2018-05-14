@@ -42,7 +42,7 @@ class TweetPanel extends Component {
                             </TableRow>
                         </TableHeader>
 
-                        <TableBody displayRowCheckbox={this.state.showCheckboxes}>
+                        <TableBody id="tweetpanel_body" className="tweetpanel_body" displayRowCheckbox={this.state.showCheckboxes}>
                             {
                                 this.props.tweetData.data.tweets.map((tweet) =>
                                     <TableRow
