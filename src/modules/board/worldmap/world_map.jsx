@@ -77,7 +77,6 @@ class WorldMap extends Component {
             
         });
 
-        window.myMap = map;
 
         return map;
     }
