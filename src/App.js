@@ -51,8 +51,28 @@ class App extends Component {
             navigator.geolocation.getCurrentPosition(function (position) {
                 that.updateTrendTopicsInArea(position.coords.latitude, position.coords.longitude)
 
-            });
-        }
+            },
+            function(error) {
+                if(error.code === 1){ // if user does not allow geolocation
+                    let payload = {
+                        data: {
+                            trendTopicDataInArea: {
+                                errorCode: 400,
+                                trendTopics: []
+                            },
+                        }
+                    }
+            
+                    that.props.actions.update_trendtopics_inarea(payload);
+
+                }
+            }
+
+        );
+          
+
+        } 
+
 
     }
 

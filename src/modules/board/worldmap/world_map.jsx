@@ -34,7 +34,6 @@ class WorldMap extends Component {
             updatedMap.dataProvider.zoomLongitude =  updatedMap.dataProvider.zoomLongitude =  this.state.map.zoomLongitude();
             this.setState({map : updatedMap})
             this.state.map.validateData(); //update above data
-            console.log(this.state.map)
         }
 
     }

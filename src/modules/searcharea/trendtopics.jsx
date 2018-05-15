@@ -26,7 +26,8 @@ class TrendTopics extends Component {
                 errorCode: '',
                 trendTopics: []
             },
-            address: ''
+            address: "",
+            errorText: ""
         }
 
         this.getAddressFromUser = this.getAddressFromUser.bind(this);
@@ -92,11 +93,11 @@ class TrendTopics extends Component {
                             }}>
                             <TextField
                                 hintText="City Name"
-                                floatingLabelText="Enter your city to get trends"
+                                floatingLabelText="Enter your city"
                                 floatingLabelFocusStyle={{ color: 'black' }}
                                 underlineFocusStyle={{ borderColor: '#ff4081' }}
                                 type="keyword"
-                                errorText=""
+                                errorText={this.state.errorText}
                                 onChange={this.getAddressFromUser}
 
                             />
@@ -181,74 +182,87 @@ class TrendTopics extends Component {
 
 
     searchTrendTopics = async () => {
-        this.setState({
-            trendTopicData: {
-                errorCode: '',
-                trendTopics: []
-            }
-        })
 
-        let response = null;
-        response = await fetch('api/getTrendTopics/byAddress?address=' + this.state.address);
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message);
+        if (this.state.address === "") {
+            this.setState({ errorText: "Please enter a keyword" });
         }
-        else if (typeof body.errorCode !== 'undefined') {
-            if (this.props.trendTopicName === "Trends In Your Area") {
-                let payload = {
-                    data: {
-                        trendTopicDataInArea: {
-                            errorCode: body.errorCode,
-                            trendTopics: []
-                        },
-                    }
-                }
 
-                this.props.actions.update_trendtopics_inarea(payload);
-            } else {
-                let payload = {
-                    data: {
-                        trendTopicDataInWorldWide: {
-                            errorCode: body.errorCode,
-                            trendTopics: []
-                        },
-                    }
-                }
-
-                this.props.actions.update_trendtopics_inworldwide(payload);
-            }
-
+        else if (this.state.address.length < 4) {
+            this.setState({ errorText: "Please enter at least four characters" });
         }
+       
+
         else {
-            if (this.props.trendTopicName === "Trends In Your Area") {
-                let payload = {
-                    data: {
-                        trendTopicDataInArea: {
-                            errorCode: '',
-                            trendTopics: body.trendTopics
-                        },
-                    }
-                }
 
-                this.props.actions.update_trendtopics_inarea(payload);
-            } else {
-                let payload = {
-                    data: {
-                        trendTopicDataInWorldWide: {
-                            errorCode: '',
-                            trendTopics: body.trendTopics
-                        },
-                    }
-                }
+            console.log("ok")
+            this.setState({
+                trendTopicData: {
+                    errorCode: '',
+                    trendTopics: []
+                },
+                errorText: ""
+            })
 
-                this.props.actions.update_trendtopics_inworldwide(payload);
+            let response = null;
+            response = await fetch('api/getTrendTopics/byAddress?address=' + this.state.address);
+            const body = await response.json();
+
+            if (response.status !== 200) {
+                throw Error(body.message);
             }
+            else if (typeof body.errorCode !== 'undefined') {
+                if (this.props.trendTopicName === "Trends In Your Area") {
+                    let payload = {
+                        data: {
+                            trendTopicDataInArea: {
+                                errorCode: body.errorCode,
+                                trendTopics: []
+                            },
+                        }
+                    }
 
+                    this.props.actions.update_trendtopics_inarea(payload);
+                } else {
+                    let payload = {
+                        data: {
+                            trendTopicDataInWorldWide: {
+                                errorCode: body.errorCode,
+                                trendTopics: []
+                            },
+                        }
+                    }
+
+                    this.props.actions.update_trendtopics_inworldwide(payload);
+                }
+
+            }
+            else {
+                if (this.props.trendTopicName === "Trends In Your Area") {
+                    let payload = {
+                        data: {
+                            trendTopicDataInArea: {
+                                errorCode: '',
+                                trendTopics: body.trendTopics
+                            },
+                        }
+                    }
+
+                    this.props.actions.update_trendtopics_inarea(payload);
+                } else {
+                    let payload = {
+                        data: {
+                            trendTopicDataInWorldWide: {
+                                errorCode: '',
+                                trendTopics: body.trendTopics
+                            },
+                        }
+                    }
+
+                    this.props.actions.update_trendtopics_inworldwide(payload);
+                }
+            }
         }
-
-    };
+    }
 
 
 }
