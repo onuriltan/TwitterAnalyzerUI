@@ -14,6 +14,34 @@
             color: black !important;
             width: auto !important;
         }
+        .enteraddress {
+            .addressField {
+                div {
+                    font-size: 13px !important;
+                    width: 100% !important;
+                }
+            }
+            .searchTrendsButton {
+                .bttn{
+                    min-width: 40px !important;
+                    max-width: 70px !important;
+                    button {
+                        div {
+                            div {
+                                span {
+                                    text-align: center !important; 
+                                    padding-left: 5px !important;
+                                    padding-right: 5px !important;
+                                    font-size: 13px !important;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
         #trendtopicid {
             max-height: 8em;
             overflow: auto; 

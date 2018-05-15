@@ -81,48 +81,5 @@ class WorldMap extends Component {
     }
 
 
-
-    /*createChart(mapData) {
-
-        var map = <AmCharts.React
-            style={{
-                width: "100%",
-                height: "1000px"
-            }}
-            options={{
-                "type": "map",
-                "projection": "winkel3",
-                "theme": "dark",
-                "imagesSettings": {
-                    "rollOverColor": "#089282",
-                    "rollOverScale": 3,
-                    "selectedScale": 3,
-                    "selectedColor": "#089282",
-                    "color": "#13564e"
-                },
-
-                "areasSettings": {
-                    "unlistedAreasColor": "#15A892",
-                    "outlineThickness": 0.1,
-                    "autoZoom": true
-
-                },
-
-                "dataProvider": {
-                    "map": "worldLow",
-                    "images": [...mapData],
-                    "zoomLatitude": 0,
-                    "zoomLongitude": 0,
-                }
-
-            }} />
-
-        console.log(map)
-
-        return map;
-    }*/
-
-
-
 }
 export default WorldMap;

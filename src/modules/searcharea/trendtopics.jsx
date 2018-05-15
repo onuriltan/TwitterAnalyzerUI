@@ -193,8 +193,6 @@ class TrendTopics extends Component {
        
 
         else {
-
-            console.log("ok")
             this.setState({
                 trendTopicData: {
                     errorCode: '',
@@ -206,6 +204,7 @@ class TrendTopics extends Component {
             let response = null;
             response = await fetch('api/getTrendTopics/byAddress?address=' + this.state.address);
             const body = await response.json();
+
 
             if (response.status !== 200) {
                 throw Error(body.message);
@@ -237,7 +236,7 @@ class TrendTopics extends Component {
 
             }
             else {
-                if (this.props.trendTopicName === "Trends In Your Area") {
+                if (this.props.trendTopicName === "Trends In Area") {
                     let payload = {
                         data: {
                             trendTopicDataInArea: {

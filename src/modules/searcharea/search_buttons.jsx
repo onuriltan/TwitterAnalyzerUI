@@ -29,6 +29,12 @@ class SearchButtons extends Component {
 
     }
 
+    componentWillUnmount() {
+        if(this.props.state.reducer.socketConnection !== null) {
+            this.stop_twitter_stream();
+        }
+    }
+
 
 
     render() {
@@ -132,24 +138,32 @@ class SearchButtons extends Component {
             stompClient.debug = null;
             stompClient.connect({}, function (frame) {
                 Alertify.logPosition("top right");
-                Alertify.log('Receiving twitter stream');
+                Alertify.log('Waiting for tweets');
 
                 stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
-                    let payload_initialload = {
-                        data: {
-                            initialload: this.props.state.reducer.initialload,
-                        }
-                    }
-                    this.props.actions.update_inital_load(payload_initialload);
+                  
                     let tweet = JSON.parse(tokenizedTweet.body);
 
                     if (tweet.exception !== null) {
                         if (tweet.exception === "420") {
                             this.stop_twitter_stream();
                             Alertify.alert('Twitter API rate limit exceeded by other users.');
+                           
+                        }
+                     
+                    }
+                    if(tweet.exception === null && this.props.state.reducer.initialload === true) {
+                        Alertify.logPosition("top right");
+                        Alertify.log('Tweets receiving');
+    
+                    }
+                    let payload_initialload = {
+                        data: {
+                            initialload: false,
                         }
                     }
-
+                    this.props.actions.update_inital_load(payload_initialload);
+               
                     if (tweet.forStreamPanel === true) {
                         let payload = {
                             data: {
