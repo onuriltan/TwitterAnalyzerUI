@@ -27,7 +27,8 @@ class TrendTopics extends Component {
                 trendTopics: []
             },
             address: "",
-            errorText: ""
+            errorText: "",
+
         }
 
         this.getAddressFromUser = this.getAddressFromUser.bind(this);
@@ -40,12 +41,16 @@ class TrendTopics extends Component {
             this.setState({
                 trendTopicData: nextProps.state.reducer.trendTopicDataInArea,
             })
+        
         }
         if (this.props.trendTopicName === "Trends In World") {
             this.setState({
                 trendTopicData: nextProps.state.reducer.trendTopicDataInWorldWide
             })
         }
+        
+       
+       
     }
 
 
@@ -75,8 +80,9 @@ class TrendTopics extends Component {
                 );
             }
         }
-        if (parseInt(this.state.trendTopicData.errorCode, 10) === 404) {
+        if (parseInt(this.state.trendTopicData.errorCode, 10) === 404 || parseInt(this.state.trendTopicData.errorCode, 10) === 405) {
             return (
+                
                 <div className="trendtopics">
                     <Subheader className="trendtopicheader">{this.props.trendTopicName}</Subheader>
                     <div className="enteraddress"
@@ -99,6 +105,7 @@ class TrendTopics extends Component {
                                 type="keyword"
                                 errorText={this.state.errorText}
                                 onChange={this.getAddressFromUser}
+                                defaultValue={this.state.address}
 
                             />
                         </div>
@@ -187,7 +194,7 @@ class TrendTopics extends Component {
             this.setState({ errorText: "Please enter a keyword" });
         }
 
-        else if (this.state.address.length < 4) {
+        else if (this.state.address.length < 2) {
             this.setState({ errorText: "Please enter at least four characters" });
         }
        
@@ -211,17 +218,28 @@ class TrendTopics extends Component {
             }
             else if (typeof body.errorCode !== 'undefined') {
                 if (this.props.trendTopicName === "Trends In Area") {
+                  
                     let payload = {
                         data: {
                             trendTopicDataInArea: {
                                 errorCode: body.errorCode,
+                                cityName : '',
                                 trendTopics: []
                             },
                         }
                     }
 
                     this.props.actions.update_trendtopics_inarea(payload);
+
+                    if (this.state.trendTopicData.errorCode !== '') {
+                        if(parseInt(body.errorCode, 10) === 404 ) {
+                            this.setState({ errorText: "City not found" });
+                        }
+                    }
+                          
+                    
                 } else {
+           
                     let payload = {
                         data: {
                             trendTopicDataInWorldWide: {
@@ -241,6 +259,7 @@ class TrendTopics extends Component {
                         data: {
                             trendTopicDataInArea: {
                                 errorCode: '',
+                                cityName: '',
                                 trendTopics: body.trendTopics
                             },
                         }

@@ -12,6 +12,7 @@ export default {
     tweetslocation: [],
     trendTopicDataInArea: {
         errorCode: '',
+        cityName: '',
         trendTopics: []
     },
     trendTopicDataInWorldWide: {
