@@ -162,6 +162,8 @@
                     tr {
                         td {
                             padding: 1rem;
+                            font-size: 10px !important;
+
                         }
                         td:nth-child(1){
                             width: 15%;
@@ -178,20 +180,7 @@
                     }
                             
                 }
-                div{
-                    div{
-                        table {
-                            tbody {
-                                tr {
-                                    td {
-                                        font-size: 12px !important;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
+                
             }
         }
     }
@@ -219,7 +208,7 @@
             #tweetpanel_paper {
                 .tableHeader {
                     th {
-                        font-size: 8px !important;
+                        font-size: 9px !important;
                     }
                     th:nth-child(1){
                         width: 20%;
@@ -243,6 +232,7 @@
                     tr {
                         td {
                             padding: 0.5rem;
+                            font-size: 8px !important;
                         }
                         td:nth-child(1){
                             width: 20%;
@@ -259,20 +249,7 @@
                     }
                             
                 }
-                div{
-                    div{
-                        table {
-                            tbody {
-                                tr {
-                                    td {
-                                        font-size: 8px !important;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
+            
             }
         }
     }
