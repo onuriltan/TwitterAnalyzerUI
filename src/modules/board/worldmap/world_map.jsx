@@ -18,7 +18,7 @@ class WorldMap extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var map = this.createChart(this.mapData);
         this.setState({ map: map });
     }
