@@ -54,4 +54,4 @@ app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
         });
 });
 
-app.listen(process.env.PORT || 5000 ,() => console.log('twitteranalyzerui is listening on port 5000!'));
+app.listen(process.env.PORT || 5000);
