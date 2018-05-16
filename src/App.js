@@ -57,7 +57,7 @@ class App extends Component {
                     let payload = {
                         data: {
                             trendTopicDataInArea: {
-                                errorCode: 400,
+                                errorCode: 404,
                                 trendTopics: []
                             },
                         }

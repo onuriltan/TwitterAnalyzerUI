@@ -75,7 +75,7 @@ class TrendTopics extends Component {
                 );
             }
         }
-        if (parseInt(this.state.trendTopicData.errorCode, 10) === 400) {
+        if (parseInt(this.state.trendTopicData.errorCode, 10) === 404) {
             return (
                 <div className="trendtopics">
                     <Subheader className="trendtopicheader">{this.props.trendTopicName}</Subheader>
@@ -210,7 +210,7 @@ class TrendTopics extends Component {
                 throw Error(body.message);
             }
             else if (typeof body.errorCode !== 'undefined') {
-                if (this.props.trendTopicName === "Trends In Your Area") {
+                if (this.props.trendTopicName === "Trends In Area") {
                     let payload = {
                         data: {
                             trendTopicDataInArea: {
