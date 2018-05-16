@@ -33,7 +33,7 @@ class TweetPanel extends Component {
                             displaySelectAll={this.state.showCheckboxes}
                             adjustForCheckbox={this.state.showCheckboxes}
                         >
-                            <TableRow>
+                            <TableRow className="tableHeader">
                                 <TableHeaderColumn>Username</TableHeaderColumn>
                                 <TableHeaderColumn>Tweet</TableHeaderColumn>
                                 <TableHeaderColumn>Location</TableHeaderColumn>

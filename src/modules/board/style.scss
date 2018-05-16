@@ -26,6 +26,23 @@
   
     .tweetpanel {
         margin: 2em 1em 2em 1em;
+        $table-header-font-weight:      400;
+        $table-header-font-color:       #757575;
+
+        $table-cell-padding:            1.6rem;
+        $table-condensed-cell-padding:  $table-cell-padding/2;
+
+
+        $table-bg:                      #fff;
+        $table-bg-accent:               #f5f5f5;
+        $table-bg-hover:                rgba(0,0,0,.12);
+        $table-bg-active:               $table-bg-hover;
+        $table-border-color:            #e0e0e0;
+        @mixin transition($transition){
+            -webkit-transition: $transition;
+                 -o-transition: $transition;
+                    transition: $transition;
+          }
         .tweetpanel_paper {
             div div:nth-child(2){
                 overflow-x: hidden;
@@ -41,6 +58,48 @@
             div div:nth-child(2)::-webkit-scrollbar-thumb {
                 background-color: black;
             }
+            .tableHeader {
+                th:nth-child(1){
+                    width: 10%;
+                }
+                th:nth-child(2){
+                    text-align: center !important;
+                    width: 70%;
+                }
+                th:nth-child(3){
+                    width: 10%;
+                }
+                th:nth-child(4){
+                    width: 10%;
+                }
+                
+            }
+            .tweetpanel_body {
+                tr:hover {
+                      background-color:  rgba(0,0,0,.12);
+                }
+                tr {
+                    td {
+                        padding: 1.6rem;
+                    }
+                    td:nth-child(1){
+                        width: 10%;
+                    }
+                    td:nth-child(2){
+                        width: 70%;
+                    }
+                    td:nth-child(3){
+                        width: 10%;
+                    }
+                    td:nth-child(4){
+                        width: 10%;
+                    }
+                }
+                        
+            }
+            
+        
+            
         }
        
         
@@ -77,6 +136,48 @@
         }
         .tweetpanel {
             #tweetpanel_paper {
+                .tableHeader {
+                    th {
+                        font-size: 9px !important;
+                    }
+                    th:nth-child(1){
+                        width: 15%;
+                    }
+                    th:nth-child(2){
+                        text-align: center !important;
+                        width: 55%;
+                    }
+                    th:nth-child(3){
+                        width: 15%;
+                    }
+                    th:nth-child(4){
+                        width: 15%;
+                    }
+                    
+                }
+                .tweetpanel_body {
+                    tr:hover {
+                          background-color:  rgba(0,0,0,.12);
+                    }
+                    tr {
+                        td {
+                            padding: 1rem;
+                        }
+                        td:nth-child(1){
+                            width: 15%;
+                        }
+                        td:nth-child(2){
+                            width: 55%;
+                        }
+                        td:nth-child(3){
+                            width: 15%;
+                        }
+                        td:nth-child(4){
+                            width: 15%;
+                        }
+                    }
+                            
+                }
                 div{
                     div{
                         table {
@@ -116,6 +217,48 @@
         }
         .tweetpanel {
             #tweetpanel_paper {
+                .tableHeader {
+                    th {
+                        font-size: 8px !important;
+                    }
+                    th:nth-child(1){
+                        width: 20%;
+                    }
+                    th:nth-child(2){
+                        text-align: center !important;
+                        width: 40%;
+                    }
+                    th:nth-child(3){
+                        width: 20%;
+                    }
+                    th:nth-child(4){
+                        width: 20%;
+                    }
+                    
+                }
+                .tweetpanel_body {
+                    tr:hover {
+                          background-color:  rgba(0,0,0,.12);
+                    }
+                    tr {
+                        td {
+                            padding: 0.5rem;
+                        }
+                        td:nth-child(1){
+                            width: 20%;
+                        }
+                        td:nth-child(2){
+                            width: 40%;
+                        }
+                        td:nth-child(3){
+                            width: 20%;
+                        }
+                        td:nth-child(4){
+                            width: 20%;
+                        }
+                    }
+                            
+                }
                 div{
                     div{
                         table {
