@@ -60,19 +60,24 @@ class WorldMap extends Component {
                 "color": "#13564e"
             },
 
-            "areasSettings": {
-                "unlistedAreasColor": "#15A892",
-                "outlineThickness": 0.1,
-                "autoZoom": true
-
-            },
             "dataProvider": {
                 "map": "worldLow",
+                "getAreasFromMap": true,  // country name on hover
                 "zoomLevel": this.state.zoomLevel,
                 "zoomLatitude": this.state.zoomLatitude,
                 "zoomLongitude": this.state.zoomLongitude,
                 "images": [...this.state.mapData],
             },
+
+            "areasSettings": {
+                "unlistedAreasColor": "#15A892",
+                "outlineColor": "white", //country border color
+                "outlineThickness": 0.5, //country border thickness
+                "autoZoom": true,
+                "color": '#15A892', //countries color
+
+            },
+         
             
         });
 
