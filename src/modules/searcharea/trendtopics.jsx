@@ -57,8 +57,6 @@ class TrendTopics extends Component {
     render() {
 
         if (this.state.trendTopicData.errorCode === '') {
-            console.log(this.state.trendTopicData.trendTopics)
-
             if (this.state.trendTopicData.trendTopics.length !== 0) {
                 return (
                     <div className="trendtopics">
