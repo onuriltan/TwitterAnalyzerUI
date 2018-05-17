@@ -26,7 +26,7 @@ class WorldMap extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-        if(typeof (this.state.map ) !== "undefined") {
+        if(typeof (this.state.map.mapContainer ) !== "undefined") {
             var updatedMap = this.state.map;
             updatedMap.dataProvider.images = this.props.mapData.data.tweetslocation;
             updatedMap.dataProvider.zoomLevel =  this.state.map.zoomLevel();
