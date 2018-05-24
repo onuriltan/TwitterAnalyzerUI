@@ -14,7 +14,8 @@ import {
     RESET_DATA,
     SET_KEYWORD_FIELD,
     UPDATE_TRENDS_INAREA,
-    UPDATE_TRENDS_INWORLDWIDE
+    UPDATE_TRENDS_INWORLDWIDE,
+    UPDATE_LOADING_SCREEN
 
 } from '../actions/action_types';
 
@@ -114,6 +115,13 @@ export default function reducer(state = initialState, action) {
             return update(
                 state, {
                     trendTopicDataInWorldWide: { $set: action.payload.data.trendTopicDataInWorldWide }
+                }
+            );
+
+        case UPDATE_LOADING_SCREEN:
+            return update(
+                state, {
+                    loading: { $set: action.payload.data.loading }
                 }
             );
 

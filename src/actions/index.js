@@ -13,6 +13,7 @@ import {
     UPDATE_TRENDS_INWORLDWIDE,
     RESET_DATA,
     SET_KEYWORD_FIELD,
+    UPDATE_LOADING_SCREEN
 
 } from '../actions/action_types';
 
@@ -123,6 +124,15 @@ export function reset_data(state) {
 export function set_keyword_field(state) {
     return {
         type: SET_KEYWORD_FIELD,
+        payload: state
+    };
+
+}
+
+
+export function update_loading_screen(state) {
+    return {
+        type: UPDATE_LOADING_SCREEN,
         payload: state
     };
 

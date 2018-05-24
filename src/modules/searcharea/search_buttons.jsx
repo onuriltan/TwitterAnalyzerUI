@@ -84,7 +84,8 @@ class SearchButtons extends Component {
             socketConnection.disconnect();
             let payload = {
                 data: {
-                    socketConnection: null
+                    socketConnection: null,
+                    loading: false
                 }
             }
 
@@ -113,7 +114,10 @@ class SearchButtons extends Component {
                     person: {},
                     tweetslocation: [],
                     others: {},
-                    searchTextError: ""
+                    searchTextError: "",
+                    loading: true
+                   
+                   
                 }
             }
 
@@ -163,6 +167,15 @@ class SearchButtons extends Component {
                         }
                     }
                     this.props.actions.update_inital_load(payload_initialload);
+
+                    let payload_loading = {
+                        data: {
+                            loading: false,
+                        }
+                    }
+                    this.props.actions.update_loading_screen(payload_loading);
+
+                    
                
                     if (tweet.forStreamPanel === true) {
                         let payload = {

@@ -12,3 +12,4 @@ export const RESET_DATA                =  "RESET_DATA"                      ;
 export const SET_KEYWORD_FIELD         =  "SET_KEYWORD_FIELD"               ;
 export const UPDATE_TRENDS_INAREA      =  "UPDATE_TRENDS_INAREA"            ;
 export const UPDATE_TRENDS_INWORLDWIDE =  "UPDATE_TRENDS_INWORLDWIDE"       ;
+export const UPDATE_LOADING_SCREEN     =  "UPDATE_LOADING_SCREEN"           ;
