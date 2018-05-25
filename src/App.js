@@ -180,10 +180,14 @@ class App extends Component {
                         if (this.props.state.reducer.loading === true) {
                             return "loading";
                         }
-                        else{
+                        else {
                             return "";
                         }
-                    })()}></div>
+                    })()}>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
                     <SearchArea newChartDataListener={this.handleChartData.bind(this)} newMapDataListener={this.handleMapData.bind(this)} newTweetPanelListener={this.handleTweetPanelData.bind(this)} />
                     <Board chartData={this.state.chartData} mapData={this.state.mapData} tweetData={this.state.tweetData} />
                 </div>

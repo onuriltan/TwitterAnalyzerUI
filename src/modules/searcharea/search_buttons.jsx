@@ -30,9 +30,7 @@ class SearchButtons extends Component {
     }
 
     componentWillUnmount() {
-        if(this.props.state.reducer.socketConnection !== null) {
-            this.stop_twitter_stream();
-        }
+        this.stop_twitter_stream();
     }
 
 
@@ -84,15 +82,21 @@ class SearchButtons extends Component {
             socketConnection.disconnect();
             let payload = {
                 data: {
-                    socketConnection: null,
-                    loading: false
+                    socketConnection: null
                 }
             }
 
             this.props.actions.stop_twitter_stream(payload);
 
+            let payload_loading = {
+                data: {
+                    loading: false,
+                }
+            }
+            this.props.actions.update_loading_screen(payload_loading);
+
         }
-        Alertify.logPosition("top right");
+        Alertify.logPosition("bottom right");
         Alertify.log('Twitter stream stopped');
 
 
@@ -126,9 +130,6 @@ class SearchButtons extends Component {
             this.props.actions.reset_data(payload);
             this.props.newTweetPanelListener(payload);
 
-
-
-
             let stompClient = null;
             let socket;
             if (process.env.NODE_ENV === "development") {
@@ -141,7 +142,7 @@ class SearchButtons extends Component {
 
             stompClient.debug = null;
             stompClient.connect({}, function (frame) {
-                Alertify.logPosition("top right");
+                Alertify.logPosition("bottom right");
                 Alertify.log('Waiting for tweets');
 
                 stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
@@ -157,7 +158,14 @@ class SearchButtons extends Component {
                      
                     }
                     if(tweet.exception === null && this.props.state.reducer.initialload === true) {
-                        Alertify.logPosition("top right");
+                        let payload_loading = {
+                            data: {
+                                loading: false,
+                            }
+                        }
+                        this.props.actions.update_loading_screen(payload_loading);
+    
+                        Alertify.logPosition("bottom right");
                         Alertify.log('Tweets receiving');
     
                     }
