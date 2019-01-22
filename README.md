@@ -6,5 +6,5 @@ Twitter Analyzer is a project that analyzes tweets by a given keyword in real ti
 locations, organizations or famous names are mentioned in the tweets, also it gives you a map visualization 
 to show tweeted location
 
-##LICENSE
+## LICENSE
 [MIT](https://choosealicense.com/licenses/mit/)
