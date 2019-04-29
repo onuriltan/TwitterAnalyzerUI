@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 
@@ -20,7 +21,7 @@ app.get('/api/ping', function (req, res) {
 });
 
 app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
-    axios.get('http://localhost:8080/api/getTrendTopics/byGeolocation?lat=' + req.query.lat + '&lng=' + req.query.lng)
+    axios.get('https://twitteranalyzerapi.herokuapp.com/api/getTrendTopics/byGeolocation?lat=' + req.query.lat + '&lng=' + req.query.lng)
         .then(function (response) {
             return res.send(response.data);
         })
@@ -32,7 +33,7 @@ app.get('/api/getTrendTopics/byGeolocation', function (req, res) {
 
 
 app.get('/api/getTrendTopics/byAddress', function (req, res) {
-    axios.get('http://localhost:8080/api/getTrendTopics/byAddress?address=' + req.query.address)
+    axios.get('https://twitteranalyzerapi.herokuapp.com/api/getTrendTopics/byAddress?address=' + req.query.address)
         .then(function (response) {
             return res.send(response.data);
         })
@@ -44,7 +45,7 @@ app.get('/api/getTrendTopics/byAddress', function (req, res) {
 
 
 app.get('/api/getTrendTopics/inWorldWide', function (req, res) {
-    axios.get('http://localhost:8080/api/getTrendTopics/inWorldWide')
+    axios.get('https://twitteranalyzerapi.herokuapp.com/api/getTrendTopics/inWorldWide')
         .then(function (response) {
             return res.send(response.data);
         })

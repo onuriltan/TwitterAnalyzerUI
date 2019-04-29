@@ -10,10 +10,6 @@ import {
 
 import Paper from 'material-ui/Paper';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
-
 class TweetPanel extends Component {
 
     constructor(props) {

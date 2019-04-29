@@ -38,7 +38,7 @@ class SearchButtons extends Component {
     render() {
         return (
             <div className="searchfield">
-                
+
                 <TextField
                     className="textField"
                     hintText="Keyword"
@@ -120,8 +120,8 @@ class SearchButtons extends Component {
                     others: {},
                     searchTextError: "",
                     loading: true
-                   
-                   
+
+
                 }
             }
 
@@ -136,7 +136,7 @@ class SearchButtons extends Component {
                 socket = new SockJS('http://localhost:8080/twitterStream');
             }
             if (process.env.NODE_ENV === "production") {
-                socket = new SockJS('https://onuriltan.com/twitteranalyzercore/twitterStream');
+                socket = new SockJS('https://twitteranalyzerapi.herokuapp.com/twitterStream');
             }
             stompClient = Stomp.over(socket);
 
@@ -146,16 +146,16 @@ class SearchButtons extends Component {
                 Alertify.log('Waiting for tweets');
 
                 stompClient.subscribe('/user/queue/fetchTwitterStream', function (tokenizedTweet) {
-                  
+
                     let tweet = JSON.parse(tokenizedTweet.body);
 
                     if (tweet.exception !== null) {
                         if (tweet.exception === "420") {
                             this.stop_twitter_stream();
                             Alertify.alert('Twitter API rate limit exceeded by other users.');
-                           
+
                         }
-                     
+
                     }
                     if(tweet.exception === null && this.props.state.reducer.initialload === true) {
                         let payload_loading = {
@@ -164,10 +164,10 @@ class SearchButtons extends Component {
                             }
                         }
                         this.props.actions.update_loading_screen(payload_loading);
-    
+
                         Alertify.logPosition("bottom right");
                         Alertify.log('Tweets receiving');
-    
+
                     }
                     let payload_initialload = {
                         data: {
@@ -183,8 +183,8 @@ class SearchButtons extends Component {
                     }
                     this.props.actions.update_loading_screen(payload_loading);
 
-                    
-               
+
+
                     if (tweet.forStreamPanel === true) {
                         let payload = {
                             data: {
