@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
-  "homepage": "http://onuriltan.com/",
+  "homepage": "https://twitteranalyzerapp.herokapp.com",
   "dependencies": {
     "alertify.js": "^1.0.12",
     "ammap3": "github:amcharts/ammap3",
