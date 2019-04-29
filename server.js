@@ -7,7 +7,6 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-
 /*             API             */
 
 app.get('/', function (req, res) {
